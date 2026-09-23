@@ -3,769 +3,546 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#090817">
-  <meta name="description" content="光と音で編まれた、まだ名前のない宇宙を歩く。EIDOLON 異界観測所の没入型デジタルアート体験。">
-  <title>EIDOLON — 異界観測所</title>
+  <meta name="theme-color" content="#e9e9df">
+  <meta name="description" content="波のない深海、記憶で育つ森、夜明けを知らない庭。光と音で空想の景色を歩く、EIDOLONの作品紹介。">
+  <meta property="og:title" content="EIDOLON — 空想観測録">
+  <meta property="og:description" content="まだ名前のない景色を、自分の歩幅で歩いてみる。">
+  <meta property="og:type" content="website">
+  <title>EIDOLON — 空想観測録</title>
   <style>
     :root {
-      color-scheme: dark;
-      --ink: #090817;
-      --ink-soft: #100e22;
-      --gallery: #e6e5ee;
-      --gallery-ink: #211f37;
-      --gallery-muted: #68667b;
-      --paper: #f4f1ff;
-      --muted: #a5a2ba;
-      --line: rgba(230, 225, 255, .18);
-      --violet: #b6a5ff;
-      --ice: #a9e7f3;
-      --gold: #edcfac;
-      --page-gutter: clamp(22px, 6.1vw, 94px);
-      --font-jp: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
-      --font-display: "Arial", "Helvetica Neue", sans-serif;
-      --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      color-scheme: light;
+      --paper: #e9e9df;
+      --paper-shadow: #ddded4;
+      --ink: #202a27;
+      --ink-soft: #394640;
+      --muted: #66716a;
+      --line: rgba(32, 42, 39, .2);
+      --leaf: #557b6b;
+      --sea: #17383d;
+      --clay: #bd7457;
+      --sun: #d3a477;
+      --gutter: clamp(22px, 6vw, 88px);
+      --body-font: "Yu Gothic UI", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+      --display-font: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+      --note-font: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
     }
 
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scrollbar-color: #57516f #100e22; }
+    html { scroll-behavior: smooth; scrollbar-color: #7c8b80 var(--paper); }
     body {
       margin: 0;
-      background: var(--ink);
-      color: var(--paper);
-      font-family: var(--font-jp);
-      font-size: 16px;
-      line-height: 1.8;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: var(--body-font);
+      font-size: 15px;
+      line-height: 1.9;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
-    ::selection { color: var(--ink); background: var(--ice); }
+    ::selection { color: var(--paper); background: var(--leaf); }
     a { color: inherit; text-decoration: none; }
-    button, a { -webkit-tap-highlight-color: transparent; }
-    a:focus-visible { outline: 2px solid var(--ice); outline-offset: 5px; }
+    a:focus-visible { outline: 2px solid var(--clay); outline-offset: 5px; }
     .skip-link {
-      position: fixed;
-      z-index: 20;
-      top: 12px;
-      left: 12px;
-      padding: 10px 16px;
-      transform: translateY(-160%);
-      color: var(--ink);
-      background: var(--paper);
+      position: fixed; z-index: 20; top: 10px; left: 10px;
+      padding: 8px 14px; transform: translateY(-150%);
+      color: var(--paper); background: var(--ink);
     }
     .skip-link:focus { transform: translateY(0); }
 
     .site-header {
-      position: absolute;
-      z-index: 5;
-      top: 0;
-      left: 0;
-      display: flex;
-      width: 100%;
-      align-items: center;
-      justify-content: space-between;
-      padding: 27px var(--page-gutter);
+      position: relative; z-index: 3;
+      display: flex; align-items: center; justify-content: space-between;
+      width: min(100%, 1440px); margin: 0 auto; padding: 30px var(--gutter) 25px;
+      border-bottom: 1px solid var(--line);
     }
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 190px;
-    }
+    .brand { display: inline-flex; align-items: center; gap: 13px; }
     .brand-mark {
-      position: relative;
-      display: grid;
-      width: 34px;
-      height: 34px;
-      place-items: center;
-      border: 1px solid rgba(207, 199, 255, .7);
-      border-radius: 50%;
+      width: 27px; height: 27px; border: 1px solid var(--ink);
+      border-radius: 50%; position: relative; display: inline-block;
     }
     .brand-mark::before, .brand-mark::after {
-      position: absolute;
-      width: 16px;
-      height: 1px;
-      background: var(--ice);
-      content: "";
-      transform: rotate(45deg);
+      content: ""; position: absolute; inset: 5px 11px;
+      background: var(--leaf); transform: rotate(34deg);
     }
-    .brand-mark::after { transform: rotate(-45deg); }
-    .brand-word { display: flex; flex-direction: column; font-family: var(--font-display); font-size: 12px; font-weight: 600; letter-spacing: .2em; line-height: 1.15; }
-    .brand-word small { margin-top: 5px; color: #b6b1c8; font-family: var(--font-jp); font-size: 9px; font-weight: 400; letter-spacing: .14em; }
-    .site-nav { display: flex; align-items: center; gap: clamp(24px, 4vw, 60px); }
-    .site-nav a {
-      position: relative;
-      color: #d4d0e2;
-      font-size: 12px;
-      letter-spacing: .08em;
-      transition: color .25s ease;
-    }
+    .brand-mark::after { transform: rotate(-34deg); background: var(--clay); }
+    .brand-type { display: grid; gap: 0; line-height: 1.2; }
+    .brand-name { font-family: var(--note-font); font-size: 12px; letter-spacing: .17em; }
+    .brand-sub { margin-top: 4px; color: var(--muted); font-size: 10px; letter-spacing: .09em; }
+    .site-nav { display: flex; align-items: center; gap: clamp(22px, 4vw, 54px); font-size: 12px; }
+    .site-nav a { position: relative; padding: 5px 0; }
     .site-nav a::after {
-      position: absolute;
-      right: 0;
-      bottom: -7px;
-      left: 0;
-      height: 1px;
-      background: var(--ice);
-      content: "";
-      transform: scaleX(0);
-      transform-origin: left;
+      position: absolute; right: 0; bottom: 0; left: 0; height: 1px;
+      background: var(--leaf); content: ""; transform: scaleX(0); transform-origin: left;
       transition: transform .25s ease;
     }
-    .site-nav a:hover { color: white; }
     .site-nav a:hover::after { transform: scaleX(1); }
-    .header-coordinate {
-      min-width: 190px;
-      color: #9d9ab0;
-      font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: .12em;
-      text-align: right;
-    }
 
+    main { overflow: hidden; }
     .hero {
-      position: relative;
-      isolation: isolate;
-      display: flex;
-      min-height: 740px;
-      height: 100svh;
-      max-height: 1100px;
-      align-items: flex-end;
-      overflow: hidden;
-      background:
-        radial-gradient(ellipse at 73% 47%, rgba(87, 71, 148, .23), transparent 32%),
-        linear-gradient(145deg, #0d0b20 0%, #090817 55%, #0b0a18 100%);
+      display: grid; grid-template-columns: minmax(300px, .78fr) minmax(420px, 1.22fr);
+      align-items: center; gap: clamp(40px, 7vw, 112px);
+      width: min(100%, 1440px); margin: 0 auto; padding: clamp(64px, 9vw, 124px) var(--gutter) clamp(82px, 10vw, 138px);
     }
-    .webgl-canvas, .webgl-fallback { position: absolute; inset: 0; width: 100%; height: 100%; }
-    .webgl-canvas { z-index: -2; display: block; }
-    .webgl-fallback { z-index: -2; display: none; overflow: hidden; }
-    .webgl-fallback::before, .webgl-fallback::after {
-      position: absolute;
-      top: 45%;
-      left: 68%;
-      width: min(50vw, 560px);
-      aspect-ratio: 1;
-      border: 1px solid rgba(177, 214, 255, .58);
-      border-radius: 50%;
-      box-shadow: 0 0 32px rgba(141, 125, 255, .5), inset 0 0 50px rgba(120, 131, 255, .2);
-      content: "";
-      transform: translate(-50%, -50%) rotate(-28deg) scaleY(.34);
+    .hero-copy { position: relative; z-index: 1; padding-bottom: 22px; }
+    .eyebrow {
+      display: flex; align-items: center; gap: 12px;
+      margin: 0 0 24px; color: var(--leaf); font-size: 11px; letter-spacing: .12em;
     }
-    .webgl-fallback::after { transform: translate(-50%, -50%) rotate(55deg) scaleY(.34); border-color: rgba(225, 204, 255, .7); }
-    .hero::after {
-      position: absolute;
-      z-index: -1;
-      inset: 0;
-      background:
-        linear-gradient(90deg, rgba(9, 8, 23, .88) 0%, rgba(9, 8, 23, .58) 31%, rgba(9, 8, 23, .06) 72%),
-        linear-gradient(0deg, rgba(9, 8, 23, .72) 0%, transparent 38%, rgba(9, 8, 23, .2) 100%);
-      content: "";
-      pointer-events: none;
+    .eyebrow::before { display: block; width: 28px; height: 1px; background: var(--leaf); content: ""; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      margin-bottom: 27px; font-family: var(--display-font); font-size: clamp(48px, 6.1vw, 86px);
+      font-weight: 500; line-height: 1.35; letter-spacing: .07em;
     }
-    .hero-copy {
-      position: relative;
-      z-index: 2;
-      width: min(700px, 62vw);
-      margin: 0 0 clamp(105px, 15vh, 165px) var(--page-gutter);
+    h1 span { display: block; }
+    .hero-intro { max-width: 29em; margin: 0 0 33px; color: var(--ink-soft); font-size: 14px; line-height: 2.15; }
+    .hero-links { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 26px; }
+    .primary-link {
+      display: inline-flex; min-height: 49px; align-items: center; justify-content: space-between; gap: 26px;
+      padding: 9px 14px 9px 17px; border: 1px solid var(--ink);
+      font-size: 12px; transition: color .2s ease, background .2s ease;
     }
-    .eyebrow, .micro-label {
-      color: var(--ice);
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: .19em;
-      line-height: 1.5;
-    }
-    .eyebrow { display: flex; align-items: center; gap: 13px; margin: 0 0 24px; }
-    .eyebrow::before { width: 32px; height: 1px; background: currentColor; content: ""; }
-    .hero h1 {
-      margin: 0;
-      color: #f7f4ff;
-      font-size: clamp(44px, 5.2vw, 74px);
-      font-weight: 400;
-      letter-spacing: .018em;
-      line-height: 1.38;
-      text-wrap: pretty;
-    }
-    .hero h1 span { display: block; }
-    .hero-lede { max-width: 33em; margin: 20px 0 0; color: #c2bfd2; font-size: clamp(14px, 1.2vw, 16px); line-height: 2; text-wrap: pretty; }
-    .hero-actions { display: flex; align-items: center; gap: 28px; margin-top: 37px; }
-    .button-primary {
-      display: inline-flex;
-      min-height: 54px;
-      align-items: center;
-      justify-content: center;
-      gap: 22px;
-      padding: 0 21px;
-      border: 1px solid rgba(195, 184, 255, .65);
-      color: #f8f6ff;
-      background: rgba(27, 23, 54, .42);
-      font-size: 12px;
-      letter-spacing: .1em;
-      transition: border-color .25s ease, background .25s ease, transform .25s ease;
-    }
-    .button-primary span { color: var(--ice); font-family: var(--font-mono); font-size: 16px; transition: transform .25s ease; }
-    .button-primary:hover { border-color: var(--ice); background: rgba(89, 76, 151, .38); transform: translateY(-2px); }
-    .button-primary:hover span { transform: translate(3px, -3px); }
-    .text-link { display: inline-flex; align-items: center; gap: 12px; color: #c6c1d7; font-size: 12px; letter-spacing: .07em; transition: color .2s ease; }
-    .text-link:hover { color: var(--ice); }
-    .text-link span { color: var(--ice); font-family: var(--font-mono); }
-    .hero-note {
-      position: absolute;
-      z-index: 2;
-      top: 36%;
-      right: var(--page-gutter);
-      display: flex;
-      align-items: center;
-      gap: 13px;
-      color: rgba(224, 222, 241, .65);
-      font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: .2em;
-      writing-mode: vertical-rl;
-    }
-    .hero-note::before { width: 1px; height: 45px; background: linear-gradient(var(--ice), transparent); content: ""; }
-    .scroll-cue {
-      position: absolute;
-      z-index: 2;
-      right: var(--page-gutter);
-      bottom: 49px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      color: #aaa6bc;
-      font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: .18em;
-    }
-    .scroll-cue::after { width: 54px; height: 1px; background: linear-gradient(90deg, var(--violet), transparent); content: ""; }
+    .primary-link:hover { color: var(--paper); background: var(--ink); }
+    .arrow { font-size: 17px; line-height: 1; }
+    .text-link { color: var(--muted); font-size: 12px; transition: color .2s ease; }
+    .text-link:hover { color: var(--ink); }
 
-    .worlds, .about { position: relative; padding: clamp(94px, 13vw, 172px) var(--page-gutter); }
-    .worlds {
-      color: var(--gallery-ink);
+    .hero-art {
+      position: relative; min-height: 590px; aspect-ratio: .91;
+      overflow: hidden; background:
+        radial-gradient(ellipse at 50% 46%, rgba(80, 127, 115, .26), transparent 52%),
+        linear-gradient(155deg, #17383d, #172d30 65%, #182725);
+      color: #e8e9dc;
+    }
+    .hero-art::before {
+      position: absolute; z-index: 1; inset: 0; pointer-events: none; content: "";
+      background: linear-gradient(180deg, rgba(13, 34, 35, .05) 50%, rgba(13, 29, 30, .76));
+    }
+    .art-fallback {
+      position: absolute; inset: 0; opacity: .56;
       background:
-        radial-gradient(ellipse at 8% 0%, rgba(157, 160, 204, .18), transparent 39%),
-        linear-gradient(145deg, #eeedf4 0%, var(--gallery) 52%, #d9d9e6 100%);
+        repeating-radial-gradient(ellipse at 44% 57%, transparent 0 28px, rgba(149, 185, 155, .55) 29px 30px, transparent 31px 51px),
+        radial-gradient(ellipse at 45% 58%, rgba(190, 117, 87, .42), transparent 48%);
     }
-    .section-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; margin-bottom: 48px; }
-    .section-heading__copy { max-width: 650px; }
-    .section-heading .eyebrow { margin-bottom: 15px; }
-    .worlds .eyebrow { color: #6966a0; }
-    .section-heading h2, .about h2 {
-      margin: 0;
-      color: #f1edff;
-      font-size: clamp(30px, 4.2vw, 54px);
-      font-weight: 400;
-      letter-spacing: .04em;
-      line-height: 1.5;
-      text-wrap: pretty;
+    #tide-map { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .art-index {
+      position: absolute; z-index: 2; top: 21px; left: 22px;
+      color: rgba(232, 233, 220, .74); font-family: var(--note-font); font-size: 10px; letter-spacing: .1em;
     }
-    .worlds .section-heading h2 { color: var(--gallery-ink); }
-    .section-heading__aside { max-width: 250px; margin: 0 0 6px; color: var(--gallery-muted); font-size: 13px; line-height: 1.9; }
-    .world-grid { display: grid; grid-template-columns: 1.14fr .93fr .93fr; gap: clamp(18px, 2.7vw, 40px); align-items: start; }
-    .world-card { min-width: 0; }
-    .world-card:nth-child(2) { margin-top: 66px; }
-    .world-card:nth-child(3) { margin-top: 132px; }
-    .world-art {
-      position: relative;
-      display: block;
-      aspect-ratio: .88;
-      overflow: hidden;
-      border: 1px solid rgba(39, 34, 72, .16);
-      background-color: #17152c;
-      isolation: isolate;
+    .art-caption {
+      position: absolute; z-index: 2; right: 27px; bottom: 25px; left: 27px;
+      display: flex; align-items: end; justify-content: space-between; gap: 20px;
     }
-    .world-art::before, .world-art::after { position: absolute; content: ""; pointer-events: none; }
-    .world-art::before { inset: 0; z-index: -1; transition: transform .75s cubic-bezier(.2,.7,.2,1); }
-    .world-art:hover::before { transform: scale(1.07); }
-    .world-art--sea::before {
-      background:
-        radial-gradient(ellipse at 50% 57%, rgba(211, 228, 255, .7) 0 1%, transparent 1.7%),
-        repeating-radial-gradient(ellipse at 50% 59%, transparent 0 18px, rgba(174, 223, 255, .34) 19px 20px, transparent 21px 35px),
-        radial-gradient(ellipse at 51% 58%, rgba(80, 157, 207, .68), transparent 36%),
-        linear-gradient(145deg, #10172e, #142747 51%, #111125);
-    }
-    .world-art--sea::after { inset: 10% 19%; border: 1px solid rgba(185, 226, 255, .5); border-radius: 50%; transform: rotate(-29deg) scaleY(.35); box-shadow: 0 0 34px rgba(123, 204, 252, .18); }
-    .world-art--grove::before {
-      background:
-        radial-gradient(ellipse at 51% 40%, rgba(233, 232, 200, .8), transparent 3%),
-        radial-gradient(ellipse at 47% 42%, rgba(183, 206, 193, .34), transparent 21%),
-        repeating-conic-gradient(from 211deg at 52% 45%, transparent 0deg 13deg, rgba(195, 229, 210, .16) 14deg 14.6deg, transparent 15deg 29deg),
-        radial-gradient(ellipse at 52% 62%, #374957 0%, #1c2937 36%, #101323 78%);
-    }
-    .world-art--grove::after { width: 48%; aspect-ratio: 1; top: 21%; left: 26%; border: 1px solid rgba(213, 235, 212, .33); border-radius: 50%; box-shadow: 0 0 70px rgba(199, 234, 208, .12), inset 0 0 30px rgba(223, 245, 206, .12); }
-    .world-art--garden::before {
-      background:
-        radial-gradient(ellipse at 50% 49%, var(--gold) 0 1.1%, transparent 1.7%),
-        repeating-conic-gradient(from 0deg at 50% 49%, rgba(246, 218, 244, .72) 0deg 1.6deg, transparent 1.8deg 18deg),
-        radial-gradient(ellipse at 50% 49%, rgba(231, 170, 228, .22) 0 17%, transparent 18%),
-        radial-gradient(ellipse at 50% 54%, #492d60 0%, #211936 45%, #111022 83%);
-    }
-    .world-art--garden::after { top: 22%; left: 29%; width: 42%; aspect-ratio: 1; border: 1px solid rgba(244, 220, 255, .52); border-radius: 50%; box-shadow: 0 0 46px rgba(215, 165, 251, .27); }
-    .art-coordinate { position: absolute; top: 15px; left: 16px; color: rgba(237, 235, 249, .68); font-family: var(--font-mono); font-size: 8px; letter-spacing: .16em; }
-    .art-light { position: absolute; right: 18px; bottom: 17px; width: 5px; height: 5px; border-radius: 50%; background: var(--ice); box-shadow: 0 0 13px 4px rgba(169, 231, 243, .45); }
-    .world-card h3 { margin: 19px 0 5px; color: var(--gallery-ink); font-size: 20px; font-weight: 500; letter-spacing: .035em; }
-    .world-card__en { margin-left: 9px; color: #747187; font-family: var(--font-display); font-size: 9px; font-weight: 400; letter-spacing: .11em; }
-    .world-card p { max-width: 31em; margin: 0; color: #625f75; font-size: 13px; line-height: 1.95; }
+    .art-caption p { margin: 0; font-family: var(--display-font); font-size: clamp(19px, 2.1vw, 27px); letter-spacing: .04em; }
+    .art-caption span { color: rgba(232, 233, 220, .68); font-size: 10px; white-space: nowrap; }
 
-    .about { display: grid; grid-template-columns: minmax(180px, .8fr) minmax(0, 1.4fr); gap: clamp(36px, 9vw, 140px); align-items: start; overflow: hidden; background: #090817; }
-    .about::after {
-      position: absolute;
-      top: 3%;
-      right: -14%;
-      width: 54vw;
-      max-width: 700px;
-      aspect-ratio: 1;
-      border: 1px solid rgba(176, 162, 255, .08);
-      border-radius: 50%;
-      box-shadow: 0 0 0 42px rgba(176, 162, 255, .018), 0 0 0 95px rgba(176, 162, 255, .014), inset 0 0 100px rgba(176, 162, 255, .045);
-      content: "";
-      pointer-events: none;
+    .field-section {
+      padding: clamp(76px, 10vw, 132px) var(--gutter) clamp(88px, 11vw, 150px);
+      background: var(--paper-shadow);
     }
-    .about__intro, .about__body, .about__features { position: relative; z-index: 1; }
-    .about .eyebrow { margin: 8px 0 20px; }
-    .about h2 { max-width: 12em; }
-    .about__body p { max-width: 36em; margin: 8px 0 18px; color: #b7b3c6; font-size: 15px; line-height: 2.1; text-wrap: pretty; }
-    .about__features {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      margin-top: 26px;
-      border-top: 1px solid rgba(222, 215, 255, .18);
+    .section-inner { width: min(100%, 1260px); margin: 0 auto; }
+    .section-heading {
+      display: flex; align-items: end; justify-content: space-between; gap: 32px;
+      margin-bottom: 58px; padding-bottom: 22px; border-bottom: 1px solid var(--line);
     }
-    .about-feature { min-width: 0; padding: 25px 28px 0; border-right: 1px solid rgba(222, 215, 255, .13); }
-    .about-feature:first-child { padding-left: 0; }
-    .about-feature:last-child { padding-right: 0; border-right: 0; }
-    .about-feature__label { color: var(--ice); font-family: var(--font-mono); font-size: 9px; letter-spacing: .16em; }
-    .about-feature h3 { margin: 13px 0 5px; color: #efecfa; font-size: 17px; font-weight: 400; letter-spacing: .035em; }
-    .about-feature p { max-width: 28em; margin: 0; color: #aaa6ba; font-size: 12px; line-height: 1.9; }
+    .section-heading .eyebrow { margin-bottom: 12px; }
+    h2 { margin-bottom: 0; font-family: var(--display-font); font-size: clamp(31px, 4vw, 49px); font-weight: 500; letter-spacing: .045em; line-height: 1.55; }
+    .section-note { max-width: 28em; margin: 0 0 4px; color: var(--muted); font-size: 12px; line-height: 2; }
+    .world-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3.4vw, 48px); }
+    .world { min-width: 0; }
+    .world-art { position: relative; aspect-ratio: 1.1; overflow: hidden; margin-bottom: 21px; background: #bccac1; }
+    .world:nth-child(1) .world-art { aspect-ratio: 1.04; }
+    .world:nth-child(2) { margin-top: 36px; }
+    .world:nth-child(2) .world-art { aspect-ratio: .86; }
+    .world:nth-child(3) .world-art { aspect-ratio: 1.18; }
+    .world:nth-child(1) .world-art { background: #183c42; }
+    .world:nth-child(2) .world-art { background: #d0d3c5; }
+    .world:nth-child(3) .world-art { background: #e0cbb5; }
+    .world-art svg { display: block; width: 100%; height: 100%; }
+    .world-index { color: var(--muted); font-family: var(--note-font); font-size: 10px; letter-spacing: .1em; }
+    .world h3 { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin: 7px 0 7px; font-family: var(--display-font); font-size: 23px; font-weight: 500; letter-spacing: .04em; }
+    .world p { margin-bottom: 0; color: var(--ink-soft); font-size: 12px; }
+
+    .about {
+      position: relative; overflow: hidden; padding: clamp(88px, 12vw, 164px) var(--gutter);
+      color: #e8e9df; background: #243d36;
+    }
+    .about-inner { position: relative; width: min(100%, 1080px); margin: 0 auto; }
+    .about .eyebrow { color: #bacabd; }
+    .about .eyebrow::before { background: #bacabd; }
+    .about-copy { display: grid; grid-template-columns: 1fr .7fr; align-items: end; gap: 60px; margin-top: 31px; }
+    .about h2 { max-width: 13em; font-size: clamp(34px, 4.8vw, 60px); line-height: 1.62; }
+    .about-text { max-width: 28em; color: rgba(232, 233, 223, .79); font-size: 13px; line-height: 2.2; }
+    .about-text p:last-child { margin-bottom: 0; }
+    .note-line {
+      display: flex; align-items: center; gap: 17px; margin-top: 58px; padding-top: 18px;
+      border-top: 1px solid rgba(232, 233, 223, .24); color: rgba(232, 233, 223, .72); font-size: 11px;
+    }
+    .note-line strong { color: #e8e9df; font-weight: 500; }
 
     .site-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      padding: 26px var(--page-gutter) 30px;
-      border-top: 1px solid rgba(222, 215, 255, .12);
-      color: #9390a6;
-      background: #090817;
-      font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: .11em;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+      width: min(100%, 1440px); margin: 0 auto; padding: 23px var(--gutter) 27px;
+      color: var(--muted); font-size: 10px;
     }
-    .footer-brand { color: #dad6e9; font-family: var(--font-display); font-size: 10px; letter-spacing: .2em; }
-    .footer-credit { text-align: right; }
+    .site-footer p { margin: 0; }
+    .back-top { color: var(--ink-soft); white-space: nowrap; }
 
     @media (max-width: 900px) {
-      .header-coordinate { display: none; }
-      .hero-copy { width: min(660px, 76vw); }
-      .hero-note { right: 24px; }
-      .section-heading { align-items: flex-start; flex-direction: column; gap: 14px; }
-      .section-heading__aside { max-width: 34em; }
-      .world-grid { gap: 16px; }
-      .world-card:nth-child(2) { margin-top: 40px; }
-      .world-card:nth-child(3) { margin-top: 80px; }
-      .world-card__en { display: block; margin: 2px 0 0; }
-      .world-card h3 { font-size: 18px; }
+      .hero { grid-template-columns: minmax(260px, .82fr) minmax(340px, 1.18fr); gap: 35px; }
+      .hero-art { min-height: 480px; }
+      .section-heading { align-items: start; flex-direction: column; gap: 17px; }
+      .section-note { max-width: 36em; }
+      .about-copy { grid-template-columns: 1fr .85fr; gap: 35px; }
     }
-    @media (max-width: 640px) {
-      :root { --page-gutter: 23px; }
-      .site-header { padding-top: 20px; }
-      .brand { min-width: 0; gap: 9px; }
-      .brand-mark { width: 30px; height: 30px; }
-      .brand-word { font-size: 11px; }
-      .brand-word small { font-size: 8px; }
-      .site-nav { gap: 19px; }
-      .site-nav a { font-size: 11px; }
-      .hero { min-height: 690px; height: 100svh; max-height: 900px; }
-      .hero::after {
-        background:
-          linear-gradient(0deg, rgba(9, 8, 23, .96) 1%, rgba(9, 8, 23, .74) 36%, rgba(9, 8, 23, .08) 77%),
-          linear-gradient(90deg, rgba(9, 8, 23, .35), transparent 75%);
-      }
-      .hero-copy { width: calc(100% - 2 * var(--page-gutter)); margin-bottom: 109px; }
-      .eyebrow { margin-bottom: 17px; font-size: 9px; }
-      .hero h1 { font-size: clamp(29px, 8.5vw, 48px); line-height: 1.45; }
-      .hero-lede { max-width: 27em; margin-top: 13px; font-size: 14px; line-height: 1.9; }
-      .hero-actions { gap: 18px; margin-top: 25px; }
-      .button-primary { min-height: 49px; gap: 14px; padding: 0 15px; font-size: 11px; }
-      .text-link { gap: 8px; font-size: 11px; }
-      .hero-note { top: 39%; right: 13px; font-size: 8px; }
-      .webgl-fallback::before, .webgl-fallback::after { top: 30%; left: 50%; width: 290px; }
-      .scroll-cue { right: var(--page-gutter); bottom: 28px; font-size: 8px; }
-      .scroll-cue::after { width: 33px; }
-      .worlds, .about { padding-top: 88px; padding-bottom: 92px; }
-      .section-heading { margin-bottom: 30px; }
-      .section-heading h2, .about h2 { font-size: clamp(29px, 8vw, 40px); line-height: 1.55; }
-      .worlds .section-heading h2 { font-size: clamp(28px, 7.6vw, 38px); }
-      .section-heading__aside { font-size: 12px; }
-      .world-grid { grid-template-columns: 1fr; gap: 34px; }
-      .world-card:nth-child(2), .world-card:nth-child(3) { margin-top: 0; }
-      .world-art { aspect-ratio: 1.24; }
-      .world-card h3 { margin-top: 14px; font-size: 18px; }
-      .world-card__en { display: inline; margin-left: 7px; }
-      .world-card p { font-size: 13px; }
-      .about { grid-template-columns: 1fr; gap: 22px; }
-      .about .eyebrow { margin-top: 0; }
-      .about__body p { font-size: 14px; }
-      .about__features { grid-template-columns: 1fr; margin-top: 14px; }
-      .about-feature, .about-feature:first-child, .about-feature:last-child { padding: 18px 0 19px; border-right: 0; border-bottom: 1px solid rgba(222, 215, 255, .13); }
-      .about-feature:last-child { border-bottom: 0; }
-      .about-feature h3 { margin-top: 8px; }
-      .about-feature p { font-size: 13px; }
-      .about::after { top: 16%; right: -50%; width: 92vw; }
-      .site-footer { align-items: flex-start; flex-direction: column; gap: 12px; padding-top: 22px; font-size: 8px; }
-      .footer-credit { text-align: left; }
+    @media (max-width: 680px) {
+      .site-header { padding-top: 19px; padding-bottom: 17px; }
+      .site-nav { gap: 17px; font-size: 11px; }
+      .brand-mark { width: 24px; height: 24px; }
+      .brand { gap: 9px; }
+      .hero { grid-template-columns: 1fr; gap: 39px; padding-top: 63px; padding-bottom: 75px; }
+      .hero-copy { padding-bottom: 0; }
+      h1 { margin-bottom: 20px; font-size: clamp(51px, 13vw, 72px); }
+      .hero-intro { max-width: 31em; font-size: 13px; }
+      .hero-art { min-height: auto; aspect-ratio: .94; }
+      .art-index { top: 15px; left: 15px; }
+      .art-caption { right: 18px; bottom: 18px; left: 18px; }
+      .art-caption p { font-size: 21px; }
+      .field-section { padding-top: 76px; padding-bottom: 84px; }
+      .section-heading { margin-bottom: 35px; }
+      .world-grid { grid-template-columns: 1fr; gap: 38px; }
+      .world:nth-child(2) { margin-top: 0; }
+      .world:nth-child(1) .world-art,
+      .world:nth-child(2) .world-art,
+      .world:nth-child(3) .world-art { aspect-ratio: 1.32; margin-bottom: 15px; }
+      .world h3 { font-size: 22px; }
+      .about { padding-top: 84px; padding-bottom: 78px; }
+      .about-copy { grid-template-columns: 1fr; gap: 23px; margin-top: 25px; }
+      .about h2 { max-width: 12em; font-size: clamp(35px, 9vw, 48px); }
+      .about-text { font-size: 12px; }
+      .note-line { align-items: start; flex-direction: column; gap: 2px; margin-top: 39px; }
+      .site-footer { align-items: start; flex-direction: column; gap: 8px; padding-top: 19px; }
+    }
+    @media (max-width: 390px) {
+      .site-nav { gap: 12px; font-size: 10px; }
+      .brand-name { font-size: 11px; }
+      .brand-sub { font-size: 9px; }
+      .hero-links { gap: 12px 17px; }
+      .primary-link { gap: 18px; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
     }
-    @media (forced-colors: active) {
-      a:focus-visible { outline: 2px solid Highlight; }
-      .button-primary { border: 1px solid ButtonText; }
-    }
   </style>
 </head>
 <body>
   <a class="skip-link" href="#main">本文へ移動</a>
-  <header class="site-header" id="top">
-    <a class="brand" href="#top" aria-label="EIDOLON 異界観測所 ホーム">
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="EIDOLON 空想観測録 トップ">
       <span class="brand-mark" aria-hidden="true"></span>
-      <span class="brand-word">EIDOLON<small>異界観測所</small></span>
+      <span class="brand-type">
+        <span class="brand-name">EIDOLON</span>
+        <span class="brand-sub">空想観測録</span>
+      </span>
     </a>
     <nav class="site-nav" aria-label="メインナビゲーション">
-      <a href="#worlds">展示世界</a>
-      <a href="#about">体験について</a>
+      <a href="#worlds">景色の採集帖</a>
+      <a href="#about">作品について</a>
     </nav>
-    <span class="header-coordinate" aria-hidden="true">35°40′N&nbsp; 139°42′E</span>
   </header>
 
   <main id="main">
     <section class="hero" aria-labelledby="hero-title">
-      <canvas class="webgl-canvas" aria-hidden="true"></canvas>
-      <div class="webgl-fallback" aria-hidden="true"></div>
       <div class="hero-copy">
-        <p class="eyebrow">IMMERSIVE DIGITAL ART&nbsp; / &nbsp;TOKYO</p>
-        <h1 id="hero-title">境界の向こうに、<span>まだ見ぬ星がある。</span></h1>
-        <p class="hero-lede">光と音に身を委ね、まだ知らない宇宙を歩く。<br>ここは、想像力のための異界観測所。</p>
-        <div class="hero-actions">
-          <a class="button-primary" href="#worlds">展示世界をのぞく <span aria-hidden="true">↗</span></a>
-          <a class="text-link" href="#about">体験について <span aria-hidden="true">↓</span></a>
+        <p class="eyebrow">三つの架空風景を歩く</p>
+        <h1 id="hero-title"><span>空想を、</span><span>観測する。</span></h1>
+        <p class="hero-intro">波音のない深海を抜け、歩いた跡が枝になる森へ。夜明けのない庭では、花の影を追いかけます。</p>
+        <div class="hero-links">
+          <a class="primary-link" href="#worlds"><span>景色の採集帖を見る</span><span class="arrow" aria-hidden="true">↘</span></a>
+          <a class="text-link" href="#about">作品について</a>
         </div>
       </div>
-      <span class="hero-note" aria-hidden="true">AN IMAGINED WORLD, IN MOTION</span>
-      <a class="scroll-cue" href="#worlds" aria-label="展示世界へスクロール">SCROLL TO EXPLORE</a>
+      <div class="hero-art" aria-label="指先の動きに合わせて、ゆっくり流れる潮の地形">
+        <div class="art-fallback" aria-hidden="true"></div>
+        <canvas id="tide-map" aria-hidden="true"></canvas>
+        <span class="art-index">採集図 01　—　潮の記憶</span>
+        <div class="art-caption">
+          <p>潮の線を、なぞってみる。</p>
+          <span>指先で、ゆっくり動く</span>
+        </div>
+      </div>
     </section>
 
-    <section class="worlds" id="worlds" aria-labelledby="worlds-title">
-      <div class="section-heading">
-        <div class="section-heading__copy">
-          <p class="eyebrow">WORLDS OF EIDOLON</p>
-          <h2 id="worlds-title">星々のあいだを、旅する。</h2>
+    <section class="field-section" id="worlds" aria-labelledby="worlds-title">
+      <div class="section-inner">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">歩いて見つけた景色</p>
+            <h2 id="worlds-title">景色の採集帖。</h2>
+          </div>
+          <p class="section-note">見ているあいだにも、景色は少しずつ変わります。気になる場所から、のぞいてみてください。</p>
         </div>
-        <p class="section-heading__aside">一歩ごとに景色が変わる、三つの異界。<br>光の気配をたどって、気の向くままに。</p>
-      </div>
-      <div class="world-grid">
-        <article class="world-card">
-          <div class="world-art world-art--sea" role="img" aria-label="青い光の輪が広がる瑠璃色の深海">
-          <span class="art-coordinate">ABYSSAL&nbsp; / &nbsp;DEEP FIELD</span><span class="art-light" aria-hidden="true"></span>
-          </div>
-          <h3>瑠璃の深海 <span class="world-card__en">THE LAPIS SEA</span></h3>
-          <p>声を反射し、波紋として返す青い海。</p>
-        </article>
-        <article class="world-card">
-          <div class="world-art world-art--grove" role="img" aria-label="光の粒がただよう静かな忘却の森">
-          <span class="art-coordinate">SILENT&nbsp; / &nbsp;MEMORY FIELD</span><span class="art-light" aria-hidden="true"></span>
-          </div>
-          <h3>忘却の森 <span class="world-card__en">THE UNWRITTEN GROVE</span></h3>
-          <p>触れた記憶から、枝がひらいていく。</p>
-        </article>
-        <article class="world-card">
-          <div class="world-art world-art--garden" role="img" aria-label="夜空に咲く透明な花の庭">
-          <span class="art-coordinate">NOCTURNE&nbsp; / &nbsp;LUMINOUS FIELD</span><span class="art-light" aria-hidden="true"></span>
-          </div>
-          <h3>白夜の庭 <span class="world-card__en">GARDEN OF NOCTURNE</span></h3>
-          <p>夜空に浮かぶ透明な花をたどる。</p>
-        </article>
+        <div class="world-grid">
+          <article class="world">
+            <div class="world-art">
+              <svg viewBox="0 0 520 430" role="img" aria-label="暗い海を横切る青緑色の波紋と、小さな光の粒">
+                <defs>
+                  <linearGradient id="sea-bg" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#234a4d"/><stop offset="1" stop-color="#102b32"/>
+                  </linearGradient>
+                  <linearGradient id="sea-light" x1="0" y1="0" x2="1" y2="0">
+                    <stop stop-color="#d0b48b" stop-opacity="0"/><stop offset=".46" stop-color="#d0b48b" stop-opacity=".88"/><stop offset="1" stop-color="#b6d4b7" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <rect width="520" height="430" fill="url(#sea-bg)"/>
+                <path d="M-20 302 C75 249 125 352 226 298S378 247 547 297" fill="none" stroke="#8eb7a6" stroke-opacity=".42" stroke-width="1.4"/>
+                <path d="M-25 326 C77 273 134 374 235 322S392 274 548 321" fill="none" stroke="#8eb7a6" stroke-opacity=".29" stroke-width="1"/>
+                <path d="M-12 349 C82 301 150 396 251 344S414 300 538 347" fill="none" stroke="#8eb7a6" stroke-opacity=".2" stroke-width="1"/>
+                <path d="M65 96 C150 151 198 106 258 163 S374 199 470 147" fill="none" stroke="url(#sea-light)" stroke-width="2"/>
+                <path d="M27 122 C119 177 194 132 250 185 S371 220 491 167" fill="none" stroke="#9cc5b2" stroke-opacity=".45" stroke-width="1"/>
+                <path d="M110 45 C190 102 226 69 295 117 S411 155 500 111" fill="none" stroke="#d4c09a" stroke-opacity=".32" stroke-width="1"/>
+                <circle cx="331" cy="128" r="2.5" fill="#e2c99f"/><circle cx="337" cy="129" r="13" fill="#e2c99f" opacity=".09"/>
+                <circle cx="177" cy="233" r="1.8" fill="#b9d6bb"/><circle cx="182" cy="237" r="9" fill="#b9d6bb" opacity=".08"/>
+                <circle cx="427" cy="251" r="1.3" fill="#d5b88f"/><circle cx="95" cy="190" r="1.2" fill="#c3d8bf"/>
+                <path d="M0 393 C108 379 159 406 260 390 S421 376 520 397" fill="none" stroke="#ca9f72" stroke-opacity=".42"/>
+              </svg>
+            </div>
+            <span class="world-index">01 / 水辺</span>
+            <h3>瑠璃の深海</h3>
+            <p>海底を走る光を追うと、見えない音の輪郭が浮かぶ。</p>
+          </article>
+          <article class="world">
+            <div class="world-art">
+              <svg viewBox="0 0 520 430" role="img" aria-label="霧の中に重なる、形の違う木々と細い枝">
+                <defs>
+                  <linearGradient id="forest-bg" x1="0" y1="0" x2="0" y2="1">
+                    <stop stop-color="#d9dbcf"/><stop offset="1" stop-color="#a9b6a7"/>
+                  </linearGradient>
+                  <linearGradient id="tree" x1="0" y1="0" x2="0" y2="1">
+                    <stop stop-color="#718b72"/><stop offset="1" stop-color="#344f43"/>
+                  </linearGradient>
+                </defs>
+                <rect width="520" height="430" fill="url(#forest-bg)"/>
+                <path d="M0 297 C120 259 175 307 275 274 S418 267 520 285V430H0Z" fill="#9eaf9f" opacity=".54"/>
+                <path d="M0 349 C111 318 185 361 293 329 S429 322 520 344V430H0Z" fill="#748e7d" opacity=".7"/>
+                <g stroke="#485f4f" fill="none" stroke-linecap="round">
+                  <path d="M126 335 C143 270 135 200 148 103 M143 226 C108 205 92 173 78 142 M141 201 C176 177 183 144 193 112 M137 266 C106 247 84 231 65 203" stroke-width="8"/>
+                  <path d="M146 151 L111 113 M151 174 L174 143 M99 190 L74 185 M173 177 L202 170" stroke-width="3"/>
+                  <path d="M354 339 C340 257 369 191 359 81 M355 226 C323 204 309 174 300 146 M359 194 C394 164 407 137 413 109 M361 274 C399 256 421 230 440 203" stroke-width="10"/>
+                  <path d="M356 150 L328 117 M365 177 L393 137 M389 174 L424 164 M380 257 L415 253" stroke-width="3"/>
+                </g>
+                <g fill="url(#tree)" opacity=".94">
+                  <path d="M146 99 C121 127 105 145 76 149 C102 164 119 174 140 199 C142 168 153 132 169 111 C187 135 196 155 207 173 C212 141 194 112 178 91 C167 73 157 65 150 54Z"/>
+                  <path d="M359 81 C330 111 312 130 294 151 C322 155 341 170 355 193 C366 164 384 142 414 122 C389 119 375 99 359 81Z"/>
+                  <path d="M251 309 C232 328 217 341 194 347 C214 355 234 368 250 386 C268 364 285 352 306 345 C283 337 269 320 251 309Z" opacity=".7"/>
+                </g>
+                <path d="M0 232 C115 213 206 244 312 224S436 213 520 230" stroke="#edf0df" stroke-opacity=".38" fill="none"/>
+                <circle cx="239" cy="117" r="2" fill="#f1ead3"/><circle cx="266" cy="183" r="1.5" fill="#f1ead3"/>
+              </svg>
+            </div>
+            <span class="world-index">02 / 森</span>
+            <h3>忘却の森</h3>
+            <p>歩いたあとから、枝が伸びていく。</p>
+          </article>
+          <article class="world">
+            <div class="world-art">
+              <svg viewBox="0 0 520 430" role="img" aria-label="土色の空に咲く、かたちの異なる白い花">
+                <defs>
+                  <linearGradient id="garden-bg" x1="0" y1="0" x2="1" y2="1">
+                    <stop stop-color="#e3d4bf"/><stop offset="1" stop-color="#c39e80"/>
+                  </linearGradient>
+                  <radialGradient id="petal">
+                    <stop stop-color="#f0ead9"/><stop offset="1" stop-color="#c5c8ad"/>
+                  </radialGradient>
+                </defs>
+                <rect width="520" height="430" fill="url(#garden-bg)"/>
+                <circle cx="411" cy="99" r="48" fill="#eadbb8" opacity=".52"/>
+                <path d="M0 339 C101 320 178 355 280 336S419 318 520 342V430H0Z" fill="#8b795e" opacity=".68"/>
+                <g stroke="#50634c" stroke-width="3" fill="none" stroke-linecap="round">
+                  <path d="M163 362 C170 282 153 202 178 119 M168 280 C139 254 119 244 94 240 M166 318 C198 287 220 279 242 277"/>
+                  <path d="M350 365 C341 283 365 213 348 146 M349 292 C379 270 402 261 424 256 M352 324 C324 297 301 292 277 294"/>
+                </g>
+                <g fill="url(#petal)" stroke="#7f8a70" stroke-width="1.5">
+                  <ellipse cx="178" cy="111" rx="13" ry="36" transform="rotate(4 178 111)"/>
+                  <ellipse cx="178" cy="111" rx="13" ry="36" transform="rotate(76 178 111)"/>
+                  <ellipse cx="178" cy="111" rx="13" ry="36" transform="rotate(148 178 111)"/>
+                  <ellipse cx="178" cy="111" rx="13" ry="36" transform="rotate(220 178 111)"/>
+                  <ellipse cx="178" cy="111" rx="13" ry="36" transform="rotate(292 178 111)"/>
+                  <ellipse cx="94" cy="236" rx="10" ry="27" transform="rotate(-30 94 236)"/>
+                  <ellipse cx="94" cy="236" rx="10" ry="27" transform="rotate(42 94 236)"/>
+                  <ellipse cx="94" cy="236" rx="10" ry="27" transform="rotate(114 94 236)"/>
+                  <ellipse cx="424" cy="253" rx="12" ry="31" transform="rotate(18 424 253)"/>
+                  <ellipse cx="424" cy="253" rx="12" ry="31" transform="rotate(90 424 253)"/>
+                  <ellipse cx="424" cy="253" rx="12" ry="31" transform="rotate(162 424 253)"/>
+                  <ellipse cx="424" cy="253" rx="12" ry="31" transform="rotate(234 424 253)"/>
+                </g>
+                <g fill="#c58d58">
+                  <circle cx="178" cy="111" r="8"/><circle cx="94" cy="236" r="6"/><circle cx="424" cy="253" r="7"/>
+                </g>
+                <path d="M30 385 C120 369 175 397 261 380 S420 366 490 383" fill="none" stroke="#d5c1a0" stroke-width="1.2"/>
+                <circle cx="293" cy="170" r="2" fill="#f2e6c9"/><circle cx="315" cy="191" r="1.3" fill="#f2e6c9"/>
+              </svg>
+            </div>
+            <span class="world-index">03 / 庭</span>
+            <h3>白夜の庭</h3>
+            <p>陽の昇らない空の下で、花の影だけが向きを変える。</p>
+          </article>
+        </div>
       </div>
     </section>
 
     <section class="about" id="about" aria-labelledby="about-title">
-      <div class="about__intro">
-        <p class="eyebrow">A PLACE TO WANDER</p>
-        <h2 id="about-title">あなたの気配に、<br>世界が応える。</h2>
-      </div>
-      <div class="about__body">
-        <p>歩く速さ、視線の先、そこにいる人の気配。あなたの存在に呼応して、光や音、空間そのものが少しずつ姿を変えていきます。</p>
-        <p>決まった順路も、ひとつの正解もありません。まだ名前のない風景に出会うための、没入型デジタルアート体験です。</p>
-      </div>
-      <div class="about__features" aria-label="体験の特徴">
-        <article class="about-feature">
-          <span class="about-feature__label">RESONANCE / 音</span>
-          <h3>音と光が呼応する</h3>
-          <p>空間に満ちる音に合わせて、色や粒子の流れが変化します。</p>
-        </article>
-        <article class="about-feature">
-          <span class="about-feature__label">MOVEMENT / 歩行</span>
-          <h3>歩幅が順路になる</h3>
-          <p>決まった道はありません。気になる光を追いかけて巡れます。</p>
-        </article>
-        <article class="about-feature">
-          <span class="about-feature__label">PRESENCE / 気配</span>
-          <h3>その場かぎりの景色</h3>
-          <p>訪れた人の気配が重なり、同じ瞬間は二度とありません。</p>
-        </article>
+      <div class="about-inner">
+        <p class="eyebrow">この作品のこと</p>
+        <div class="about-copy">
+          <h2 id="about-title">気になる景色から、見てください。</h2>
+          <div class="about-text">
+            <p>画面の上で指を動かすと、潮の線がほんの少し揺れます。森や庭では、枝や花のかたちを眺めてみてください。</p>
+            <p>三つの景色に決まった順路はありません。見終わったあと、好きだった色をひとつだけ覚えて帰ってください。</p>
+          </div>
+        </div>
+        <div class="note-line"><strong>見かた</strong><span>線を動かす。絵を見る。戻ってみる。</span></div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <span class="footer-brand">EIDOLON &nbsp; / &nbsp; 異界観測所</span>
-    <span class="footer-credit">A CONCEPT FOR AN IMAGINED OBSERVATORY &nbsp; · &nbsp; 2026</span>
+    <p>ここは、空想上の作品を紹介するコンセプトサイトです。</p>
+    <a class="back-top" href="#">ページの先頭へ ↑</a>
   </footer>
 
   <script>
     (() => {
-      const canvas = document.querySelector('.webgl-canvas');
-      const fallback = document.querySelector('.webgl-fallback');
-      const hero = document.querySelector('.hero');
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-      const gl = canvas.getContext('webgl', { alpha: false, antialias: false, powerPreference: 'low-power' });
-      if (!gl) {
-        canvas.hidden = true;
-        fallback.style.display = 'block';
-        return;
-      }
+      const canvas = document.getElementById('tide-map');
+      const panel = canvas.parentElement;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const gl = canvas.getContext('webgl', { alpha: true, antialias: false, powerPreference: 'low-power' });
+      if (!gl) return;
 
-      const vertexSource = `
-        attribute vec2 a_position;
-        void main() { gl_Position = vec4(a_position, 0.0, 1.0); }
-      `;
-      const fragmentSource = `
-        precision highp float;
-        uniform vec2 u_resolution;
-        uniform vec2 u_mouse;
-        uniform vec2 u_center;
-        uniform float u_time;
-        uniform float u_scale;
+      const vertexSource = [
+        'attribute vec2 a_position;',
+        'void main() { gl_Position = vec4(a_position, 0.0, 1.0); }'
+      ].join('\n');
+      const fragmentSource = [
+        'precision highp float;',
+        'uniform vec2 u_resolution;',
+        'uniform vec2 u_pointer;',
+        'uniform float u_time;',
+        'float hash(vec2 p) {',
+        '  p = fract(p * vec2(123.34, 456.21));',
+        '  p += dot(p, p + 45.32);',
+        '  return fract(p.x * p.y);',
+        '}',
+        'float noise(vec2 p) {',
+        '  vec2 i = floor(p); vec2 f = fract(p);',
+        '  f = f * f * (3.0 - 2.0 * f);',
+        '  return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x), mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y);',
+        '}',
+        'float fbm(vec2 p) {',
+        '  float v = 0.0; float a = 0.5;',
+        '  for (int i = 0; i < 4; i++) { v += noise(p) * a; p = p * 2.02 + 13.1; a *= 0.5; }',
+        '  return v;',
+        '}',
+        'void main() {',
+        '  vec2 uv = gl_FragCoord.xy / u_resolution.xy;',
+        '  vec2 p = uv - 0.5;',
+        '  p.x *= u_resolution.x / u_resolution.y;',
+        '  vec2 drift = vec2(u_time * 0.025, -u_time * 0.012) + u_pointer * 0.045;',
+        '  float land = p.x * 0.47 + p.y * 0.34 + (fbm(p * 3.2 + drift) - 0.5) * 0.42;',
+        '  float contour = abs(fract(land * 15.0) - 0.5);',
+        '  float lines = 1.0 - smoothstep(0.018, 0.047, contour);',
+        '  float fineContour = abs(fract(land * 30.0 + 0.5) - 0.5);',
+        '  float fineLines = 1.0 - smoothstep(0.015, 0.035, fineContour);',
+        '  float lightField = fbm(p * 2.1 - drift * 0.8);',
+        '  vec3 deep = vec3(0.065, 0.15, 0.15);',
+        '  vec3 green = vec3(0.24, 0.39, 0.32);',
+        '  vec3 clay = vec3(0.57, 0.34, 0.23);',
+        '  vec3 color = mix(deep, green, smoothstep(0.22, 0.78, lightField));',
+        '  color = mix(color, clay, smoothstep(0.68, 0.94, fbm(p * 1.4 + 7.0)) * 0.43);',
+        '  color += vec3(0.40, 0.55, 0.44) * lines * 0.48;',
+        '  color += vec3(0.65, 0.55, 0.39) * fineLines * 0.12;',
+        '  float grain = hash(gl_FragCoord.xy + floor(u_time * 12.0)) * 0.035;',
+        '  float vignette = 1.0 - smoothstep(0.1, 1.2, length(p * vec2(0.78, 0.9)));',
+        '  color = color * (0.67 + vignette * 0.42) + grain;',
+        '  gl_FragColor = vec4(color, 0.91);',
+        '}'
+      ].join('\n');
 
-        float hash21(vec2 p) {
-          return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
-        }
-        float noise2(vec2 p) {
-          vec2 i = floor(p);
-          vec2 f = fract(p);
-          f = f * f * (3.0 - 2.0 * f);
-          return mix(mix(hash21(i), hash21(i + vec2(1.0, 0.0)), f.x),
-                     mix(hash21(i + vec2(0.0, 1.0)), hash21(i + vec2(1.0, 1.0)), f.x), f.y);
-        }
-        float fbm(vec2 p) {
-          float value = 0.0;
-          float amplitude = 0.5;
-          for (int i = 0; i < 4; i++) {
-            value += amplitude * noise2(p);
-            p = p * 2.03 + 11.7;
-            amplitude *= 0.5;
-          }
-          return value;
-        }
-        mat2 rotate2d(float a) {
-          float c = cos(a), s = sin(a);
-          return mat2(c, -s, s, c);
-        }
-        vec2 scene(vec3 p) {
-          p.xz = rotate2d(0.16 * sin(u_time * 0.13)) * p.xz;
-          p.yz = rotate2d(0.84 + 0.08 * sin(u_time * 0.11)) * p.yz;
-          p.xy = rotate2d(-0.22 + 0.08 * sin(u_time * 0.11)) * p.xy;
-          float ripple = 0.022 * sin(p.x * 14.0 + u_time * 0.32) * sin(p.y * 12.0 - u_time * 0.25) * sin(p.z * 11.0);
-          float sphere = abs(length(p) - 0.48 + ripple) - 0.022;
-          float angle = atan(p.z, p.x);
-          float radius = 0.72 + 0.022 * sin(angle * 9.0 + u_time * 0.2);
-          float ring = length(vec2(length(p.xz) - radius, p.y)) - 0.026;
-          vec3 q = p;
-          q.xy = rotate2d(1.02) * q.xy;
-          float halo = length(vec2(length(q.xy) - 0.85, q.z)) - 0.008;
-          return vec2(min(sphere, min(ring, halo)), sphere <= min(ring, halo) ? 0.0 : (ring < halo ? 1.0 : 2.0));
-        }
-        float mapScene(vec3 p) { return scene(p).x; }
-        vec3 normalAt(vec3 p) {
-          vec2 e = vec2(0.0015, 0.0);
-          return normalize(vec3(
-            mapScene(p + e.xyy) - mapScene(p - e.xyy),
-            mapScene(p + e.yxy) - mapScene(p - e.yxy),
-            mapScene(p + e.yyx) - mapScene(p - e.yyx)
-          ));
-        }
-        void main() {
-          vec2 screen = (gl_FragCoord.xy - 0.5 * u_resolution) / u_resolution.y;
-          vec3 deep = mix(vec3(0.025, 0.025, 0.066), vec3(0.055, 0.043, 0.12), smoothstep(-0.8, 0.75, screen.y));
-          vec2 nebulaPoint = screen * vec2(1.35, 1.75) + vec2(0.7, -u_time * 0.018);
-          float mist = fbm(nebulaPoint * 2.0) * 0.72 + fbm(nebulaPoint * 4.2 - 6.0) * 0.28;
-          float cloud = smoothstep(0.43, 0.78, mist) * (0.35 + 0.65 * exp(-abs(screen.x - 0.26) * 1.25));
-          deep += cloud * vec3(0.13, 0.075, 0.22);
-          deep += exp(-length(screen - vec2(0.28, 0.02)) * 2.6) * vec3(0.055, 0.095, 0.17);
-
-          vec2 starCell = floor((screen + vec2(1.4, 1.1)) * 72.0);
-          vec2 starLocal = fract((screen + vec2(1.4, 1.1)) * 72.0) - 0.5;
-          float starSeed = hash21(starCell);
-          float starDistance = length(starLocal - (vec2(hash21(starCell + 7.3), hash21(starCell + 19.1)) - 0.5) * 0.68);
-          float star = (1.0 - smoothstep(0.008, 0.027, starDistance)) * step(0.977, starSeed);
-          float pulse = 0.68 + 0.32 * sin(u_time * (0.5 + starSeed * 1.8) + starSeed * 45.0);
-          deep += star * pulse * vec3(0.65, 0.76, 1.0) * 0.8;
-
-          vec2 center = u_center + u_mouse * 0.014;
-          vec2 local = (screen - center) / u_scale;
-          vec3 ro = vec3(local, 3.0);
-          vec3 rd = vec3(0.0, 0.0, -1.0);
-          float travel = 0.0;
-          float hit = 0.0;
-          float glow = 0.0;
-          vec3 point = ro;
-          for (int i = 0; i < 54; i++) {
-            point = ro + rd * travel;
-            float distanceToScene = mapScene(point);
-            glow += exp(-abs(distanceToScene) * 22.0) * 0.003;
-            if (distanceToScene < 0.0015) { hit = 1.0; break; }
-            travel += max(distanceToScene * 0.76, 0.006);
-            if (travel > 5.7) break;
-          }
-
-          float radial = length(local);
-          float corona = exp(-pow((radial - 0.77) / 0.055, 2.0)) * 0.2;
-          float softCore = exp(-radial * 3.1) * 0.14;
-          deep += (corona + softCore + glow * 0.4) * mix(vec3(0.31, 0.55, 0.94), vec3(0.73, 0.39, 0.84), smoothstep(-0.65, 0.55, screen.y));
-
-          if (hit > 0.5) {
-            vec3 n = normalAt(point);
-            vec3 viewDir = -rd;
-            vec3 lightDir = normalize(vec3(-0.75, 0.85, 1.7));
-            float diffuse = max(dot(n, lightDir), 0.0);
-            float fresnel = pow(1.0 - max(dot(n, viewDir), 0.0), 2.7);
-            float bands = 0.5 + 0.5 * sin(point.y * 17.0 + atan(point.z, point.x) * 3.0 + u_time * 0.22);
-            vec3 base = mix(vec3(0.075, 0.16, 0.3), vec3(0.27, 0.46, 0.67), bands);
-            vec2 identity = scene(point);
-            if (identity.y > 0.5 && identity.y < 1.5) base = mix(vec3(0.12, 0.43, 0.62), vec3(0.72, 0.69, 0.98), bands * 0.8);
-            if (identity.y > 1.5) base = mix(vec3(0.47, 0.57, 0.81), vec3(0.88, 0.78, 0.65), bands);
-            float specular = pow(max(dot(reflect(-lightDir, n), viewDir), 0.0), 48.0);
-            float rimLight = pow(1.0 - max(dot(n, viewDir), 0.0), 5.0);
-            float filaments = pow(0.5 + 0.5 * sin(point.y * 17.0 + point.z * 5.0 + u_time * 0.23), 10.0);
-            vec3 objectColor = base * (0.16 + diffuse * 0.9) + vec3(0.39, 0.7, 0.96) * (specular * 0.85 + rimLight * 0.62);
-            objectColor += vec3(0.11, 0.42, 0.66) * filaments * (identity.y < 0.5 ? 0.65 : 0.08);
-            float shellOpacity = clamp(0.08 + fresnel * 0.62 + specular * 0.28, 0.08, 0.86);
-            deep = mix(deep, objectColor, identity.y < 0.5 ? shellOpacity : 0.98);
-          }
-
-          float vignette = 1.0 - smoothstep(0.58, 1.62, length(screen * vec2(0.72, 1.0)));
-          deep *= 0.73 + 0.27 * vignette;
-          float grain = hash21(gl_FragCoord.xy + floor(u_time * 8.0)) - 0.5;
-          deep += grain * 0.012;
-          gl_FragColor = vec4(deep, 1.0);
-        }
-      `;
-
-      const compile = (type, source) => {
+      function makeShader(type, source) {
         const shader = gl.createShader(type);
         gl.shaderSource(shader, source);
         gl.compileShader(shader);
-        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(shader));
-        return shader;
-      };
-
-      try {
-        const program = gl.createProgram();
-        gl.attachShader(program, compile(gl.VERTEX_SHADER, vertexSource));
-        gl.attachShader(program, compile(gl.FRAGMENT_SHADER, fragmentSource));
-        gl.linkProgram(program);
-        if (!gl.getProgramParameter(program, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(program));
-        gl.useProgram(program);
-
-        const vertices = new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]);
-        const buffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-        gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
-        const position = gl.getAttribLocation(program, 'a_position');
-        gl.enableVertexAttribArray(position);
-        gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
-
-        const uniforms = {
-          resolution: gl.getUniformLocation(program, 'u_resolution'),
-          mouse: gl.getUniformLocation(program, 'u_mouse'),
-          center: gl.getUniformLocation(program, 'u_center'),
-          time: gl.getUniformLocation(program, 'u_time'),
-          scale: gl.getUniformLocation(program, 'u_scale')
-        };
-        let pointerX = 0;
-        let pointerY = 0;
-        let frame = null;
-        let heroVisible = true;
-        let pageVisible = document.visibilityState === 'visible';
-        let visible = heroVisible && pageVisible;
-        let startTime = performance.now();
-
-        const draw = (time) => {
-          const bounds = hero.getBoundingClientRect();
-          const isMobile = bounds.width <= 640;
-          const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 0.9 : 1.0, Math.sqrt(950000 / (bounds.width * bounds.height)));
-          const width = Math.max(1, Math.floor(bounds.width * dpr));
-          const height = Math.max(1, Math.floor(bounds.height * dpr));
-          if (canvas.width !== width || canvas.height !== height) {
-            canvas.width = width;
-            canvas.height = height;
-            gl.viewport(0, 0, width, height);
-          }
-          gl.uniform2f(uniforms.resolution, width, height);
-          gl.uniform2f(uniforms.mouse, pointerX, pointerY);
-          const portalCenter = isMobile ? [0.0, 0.21] : (bounds.width <= 1050 ? [0.36, 0.09] : [0.30, 0.09]);
-          gl.uniform2f(uniforms.center, portalCenter[0], portalCenter[1]);
-          gl.uniform1f(uniforms.time, time);
-          const portalScale = isMobile ? (bounds.width <= 420 ? 0.27 : 0.31) : (bounds.width <= 1050 ? 0.36 : 0.42);
-          gl.uniform1f(uniforms.scale, portalScale);
-          gl.drawArrays(gl.TRIANGLES, 0, 6);
-        };
-        const animate = (now) => {
-          frame = null;
-          if (reduceMotion.matches || !visible) return;
-          draw((now - startTime) / 1000);
-          frame = requestAnimationFrame(animate);
-        };
-        const update = () => {
-          if (frame !== null) cancelAnimationFrame(frame);
-          frame = null;
-          if (reduceMotion.matches || !visible) {
-            draw(0);
-          } else {
-            startTime = performance.now();
-            frame = requestAnimationFrame(animate);
-          }
-        };
-        const resize = () => draw(reduceMotion.matches ? 0 : (performance.now() - startTime) / 1000);
-
-        draw(0);
-        if (!reduceMotion.matches) frame = requestAnimationFrame(animate);
-        window.addEventListener('resize', resize, { passive: true });
-        hero.addEventListener('pointermove', (event) => {
-          const rect = hero.getBoundingClientRect();
-          pointerX = (event.clientX / rect.width - 0.5) * 2;
-          pointerY = (0.5 - event.clientY / rect.height) * 2;
-        }, { passive: true });
-        hero.addEventListener('pointerleave', () => { pointerX = 0; pointerY = 0; }, { passive: true });
-        reduceMotion.addEventListener('change', update);
-        document.addEventListener('visibilitychange', () => {
-          pageVisible = document.visibilityState === 'visible';
-          visible = pageVisible && heroVisible;
-          update();
-        });
-        if ('IntersectionObserver' in window) {
-          new IntersectionObserver(([entry]) => {
-            heroVisible = entry.isIntersecting;
-            visible = heroVisible && pageVisible;
-            update();
-          }, { threshold: 0.01 }).observe(hero);
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+          gl.deleteShader(shader);
+          return null;
         }
-      } catch (error) {
-        canvas.hidden = true;
-        fallback.style.display = 'block';
-        console.error('WebGL scene unavailable:', error);
+        return shader;
       }
+      const vertexShader = makeShader(gl.VERTEX_SHADER, vertexSource);
+      const fragmentShader = makeShader(gl.FRAGMENT_SHADER, fragmentSource);
+      if (!vertexShader || !fragmentShader) return;
+
+      const program = gl.createProgram();
+      gl.attachShader(program, vertexShader);
+      gl.attachShader(program, fragmentShader);
+      gl.linkProgram(program);
+      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return;
+      gl.useProgram(program);
+
+      const buffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+      const position = gl.getAttribLocation(program, 'a_position');
+      gl.enableVertexAttribArray(position);
+      gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
+      const resolution = gl.getUniformLocation(program, 'u_resolution');
+      const pointer = gl.getUniformLocation(program, 'u_pointer');
+      const time = gl.getUniformLocation(program, 'u_time');
+      let pointerX = 0;
+      let pointerY = 0;
+      let frame = 0;
+      let visible = true;
+      const started = performance.now();
+
+      function resize() {
+        const rect = panel.getBoundingClientRect();
+        const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
+        canvas.width = Math.max(1, Math.floor(rect.width * ratio));
+        canvas.height = Math.max(1, Math.floor(rect.height * ratio));
+        gl.viewport(0, 0, canvas.width, canvas.height);
+        gl.uniform2f(resolution, canvas.width, canvas.height);
+        draw(performance.now());
+      }
+      function draw(now) {
+        gl.uniform2f(pointer, pointerX, pointerY);
+        gl.uniform1f(time, reducedMotion ? 0 : (now - started) * 0.001);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      }
+      function animate(now) {
+        draw(now);
+        if (visible && !reducedMotion) frame = requestAnimationFrame(animate);
+      }
+      const observer = new IntersectionObserver((entries) => {
+        visible = entries[0].isIntersecting;
+        if (visible && !reducedMotion && !frame) frame = requestAnimationFrame(animate);
+        if (!visible && frame) { cancelAnimationFrame(frame); frame = 0; }
+      }, { threshold: 0.05 });
+      observer.observe(panel);
+      panel.addEventListener('pointermove', (event) => {
+        const rect = panel.getBoundingClientRect();
+        pointerX = (event.clientX - rect.left) / rect.width - 0.5;
+        pointerY = (event.clientY - rect.top) / rect.height - 0.5;
+        if (reducedMotion) draw(performance.now());
+      }, { passive: true });
+      window.addEventListener('resize', resize, { passive: true });
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden && frame) { cancelAnimationFrame(frame); frame = 0; }
+        else if (!document.hidden && visible && !reducedMotion && !frame) frame = requestAnimationFrame(animate);
+      });
+      resize();
+      if (!reducedMotion) frame = requestAnimationFrame(animate);
     })();
   </script>
 </body>
