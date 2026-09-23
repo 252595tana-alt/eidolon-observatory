@@ -11,6 +11,9 @@
       color-scheme: dark;
       --ink: #090817;
       --ink-soft: #100e22;
+      --gallery: #e6e5ee;
+      --gallery-ink: #211f37;
+      --gallery-muted: #68667b;
       --paper: #f4f1ff;
       --muted: #a5a2ba;
       --line: rgba(230, 225, 255, .18);
@@ -139,7 +142,7 @@
       position: absolute;
       top: 45%;
       left: 68%;
-      width: min(64vw, 660px);
+      width: min(50vw, 560px);
       aspect-ratio: 1;
       border: 1px solid rgba(177, 214, 255, .58);
       border-radius: 50%;
@@ -174,15 +177,15 @@
     .eyebrow { display: flex; align-items: center; gap: 13px; margin: 0 0 24px; }
     .eyebrow::before { width: 32px; height: 1px; background: currentColor; content: ""; }
     .hero h1 {
-      max-width: 11em;
       margin: 0;
       color: #f7f4ff;
-      font-size: clamp(45px, 6.1vw, 82px);
+      font-size: clamp(44px, 5.2vw, 74px);
       font-weight: 400;
-      letter-spacing: .025em;
-      line-height: 1.32;
+      letter-spacing: .018em;
+      line-height: 1.38;
       text-wrap: pretty;
     }
+    .hero h1 span { display: block; }
     .hero-lede { max-width: 33em; margin: 20px 0 0; color: #c2bfd2; font-size: clamp(14px, 1.2vw, 16px); line-height: 2; text-wrap: pretty; }
     .hero-actions { display: flex; align-items: center; gap: 28px; margin-top: 37px; }
     .button-primary {
@@ -208,7 +211,7 @@
     .hero-note {
       position: absolute;
       z-index: 2;
-      top: 50%;
+      top: 36%;
       right: var(--page-gutter);
       display: flex;
       align-items: center;
@@ -236,10 +239,16 @@
     .scroll-cue::after { width: 54px; height: 1px; background: linear-gradient(90deg, var(--violet), transparent); content: ""; }
 
     .worlds, .about { position: relative; padding: clamp(94px, 13vw, 172px) var(--page-gutter); }
-    .worlds { background: linear-gradient(180deg, #100e22 0%, #0c0b1b 100%); }
+    .worlds {
+      color: var(--gallery-ink);
+      background:
+        radial-gradient(ellipse at 8% 0%, rgba(157, 160, 204, .18), transparent 39%),
+        linear-gradient(145deg, #eeedf4 0%, var(--gallery) 52%, #d9d9e6 100%);
+    }
     .section-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; margin-bottom: 48px; }
     .section-heading__copy { max-width: 650px; }
     .section-heading .eyebrow { margin-bottom: 15px; }
+    .worlds .eyebrow { color: #6966a0; }
     .section-heading h2, .about h2 {
       margin: 0;
       color: #f1edff;
@@ -249,15 +258,18 @@
       line-height: 1.5;
       text-wrap: pretty;
     }
-    .section-heading__aside { max-width: 250px; margin: 0 0 6px; color: var(--muted); font-size: 13px; line-height: 1.9; }
-    .world-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 34px); }
+    .worlds .section-heading h2 { color: var(--gallery-ink); }
+    .section-heading__aside { max-width: 250px; margin: 0 0 6px; color: var(--gallery-muted); font-size: 13px; line-height: 1.9; }
+    .world-grid { display: grid; grid-template-columns: 1.14fr .93fr .93fr; gap: clamp(18px, 2.7vw, 40px); align-items: start; }
     .world-card { min-width: 0; }
+    .world-card:nth-child(2) { margin-top: 66px; }
+    .world-card:nth-child(3) { margin-top: 132px; }
     .world-art {
       position: relative;
       display: block;
-      aspect-ratio: 1.16;
+      aspect-ratio: .88;
       overflow: hidden;
-      border: 1px solid rgba(225, 219, 255, .12);
+      border: 1px solid rgba(39, 34, 72, .16);
       background-color: #17152c;
       isolation: isolate;
     }
@@ -282,7 +294,7 @@
     .world-art--grove::after { width: 48%; aspect-ratio: 1; top: 21%; left: 26%; border: 1px solid rgba(213, 235, 212, .33); border-radius: 50%; box-shadow: 0 0 70px rgba(199, 234, 208, .12), inset 0 0 30px rgba(223, 245, 206, .12); }
     .world-art--garden::before {
       background:
-        radial-gradient(ellipse at 50% 49%, #fff3df 0 1.1%, transparent 1.7%),
+        radial-gradient(ellipse at 50% 49%, var(--gold) 0 1.1%, transparent 1.7%),
         repeating-conic-gradient(from 0deg at 50% 49%, rgba(246, 218, 244, .72) 0deg 1.6deg, transparent 1.8deg 18deg),
         radial-gradient(ellipse at 50% 49%, rgba(231, 170, 228, .22) 0 17%, transparent 18%),
         radial-gradient(ellipse at 50% 54%, #492d60 0%, #211936 45%, #111022 83%);
@@ -290,9 +302,9 @@
     .world-art--garden::after { top: 22%; left: 29%; width: 42%; aspect-ratio: 1; border: 1px solid rgba(244, 220, 255, .52); border-radius: 50%; box-shadow: 0 0 46px rgba(215, 165, 251, .27); }
     .art-coordinate { position: absolute; top: 15px; left: 16px; color: rgba(237, 235, 249, .68); font-family: var(--font-mono); font-size: 8px; letter-spacing: .16em; }
     .art-light { position: absolute; right: 18px; bottom: 17px; width: 5px; height: 5px; border-radius: 50%; background: var(--ice); box-shadow: 0 0 13px 4px rgba(169, 231, 243, .45); }
-    .world-card h3 { margin: 21px 0 5px; color: #f0edfa; font-size: 20px; font-weight: 400; letter-spacing: .045em; }
-    .world-card__en { margin-left: 10px; color: #a39eb8; font-family: var(--font-display); font-size: 10px; letter-spacing: .12em; }
-    .world-card p { max-width: 31em; margin: 0; color: #aaa7ba; font-size: 13px; line-height: 1.95; }
+    .world-card h3 { margin: 19px 0 5px; color: var(--gallery-ink); font-size: 20px; font-weight: 500; letter-spacing: .035em; }
+    .world-card__en { margin-left: 9px; color: #747187; font-family: var(--font-display); font-size: 9px; font-weight: 400; letter-spacing: .11em; }
+    .world-card p { max-width: 31em; margin: 0; color: #625f75; font-size: 13px; line-height: 1.95; }
 
     .about { display: grid; grid-template-columns: minmax(180px, .8fr) minmax(0, 1.4fr); gap: clamp(36px, 9vw, 140px); align-items: start; overflow: hidden; background: #090817; }
     .about::after {
@@ -308,14 +320,23 @@
       content: "";
       pointer-events: none;
     }
-    .about__intro, .about__body { position: relative; z-index: 1; }
+    .about__intro, .about__body, .about__features { position: relative; z-index: 1; }
     .about .eyebrow { margin: 8px 0 20px; }
     .about h2 { max-width: 12em; }
-    .about__body p { max-width: 36em; margin: 8px 0 28px; color: #b7b3c6; font-size: 15px; line-height: 2.2; text-wrap: pretty; }
-    .about-details { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 42px; }
-    .about-details span { padding: 8px 12px; border: 1px solid rgba(222, 215, 255, .16); color: #cfcbdd; font-size: 11px; letter-spacing: .07em; }
-    .about-details span::before { margin-right: 9px; color: var(--ice); content: "✳"; font-size: 9px; }
-    .about .text-link { margin-top: 8px; }
+    .about__body p { max-width: 36em; margin: 8px 0 18px; color: #b7b3c6; font-size: 15px; line-height: 2.1; text-wrap: pretty; }
+    .about__features {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 26px;
+      border-top: 1px solid rgba(222, 215, 255, .18);
+    }
+    .about-feature { min-width: 0; padding: 25px 28px 0; border-right: 1px solid rgba(222, 215, 255, .13); }
+    .about-feature:first-child { padding-left: 0; }
+    .about-feature:last-child { padding-right: 0; border-right: 0; }
+    .about-feature__label { color: var(--ice); font-family: var(--font-mono); font-size: 9px; letter-spacing: .16em; }
+    .about-feature h3 { margin: 13px 0 5px; color: #efecfa; font-size: 17px; font-weight: 400; letter-spacing: .035em; }
+    .about-feature p { max-width: 28em; margin: 0; color: #aaa6ba; font-size: 12px; line-height: 1.9; }
 
     .site-footer {
       display: flex;
@@ -340,6 +361,8 @@
       .section-heading { align-items: flex-start; flex-direction: column; gap: 14px; }
       .section-heading__aside { max-width: 34em; }
       .world-grid { gap: 16px; }
+      .world-card:nth-child(2) { margin-top: 40px; }
+      .world-card:nth-child(3) { margin-top: 80px; }
       .world-card__en { display: block; margin: 2px 0 0; }
       .world-card h3 { font-size: 18px; }
     }
@@ -351,7 +374,7 @@
       .brand-word { font-size: 11px; }
       .brand-word small { font-size: 8px; }
       .site-nav { gap: 19px; }
-      .site-nav a { font-size: 10px; }
+      .site-nav a { font-size: 11px; }
       .hero { min-height: 690px; height: 100svh; max-height: 900px; }
       .hero::after {
         background:
@@ -360,28 +383,34 @@
       }
       .hero-copy { width: calc(100% - 2 * var(--page-gutter)); margin-bottom: 109px; }
       .eyebrow { margin-bottom: 17px; font-size: 9px; }
-      .hero h1 { max-width: 10em; font-size: clamp(39px, 10.6vw, 58px); line-height: 1.42; }
-      .hero-lede { max-width: 27em; margin-top: 13px; font-size: 13px; line-height: 1.9; }
+      .hero h1 { font-size: clamp(29px, 8.5vw, 48px); line-height: 1.45; }
+      .hero-lede { max-width: 27em; margin-top: 13px; font-size: 14px; line-height: 1.9; }
       .hero-actions { gap: 18px; margin-top: 25px; }
       .button-primary { min-height: 49px; gap: 14px; padding: 0 15px; font-size: 11px; }
       .text-link { gap: 8px; font-size: 11px; }
-      .hero-note { top: 48%; right: 13px; font-size: 8px; }
+      .hero-note { top: 39%; right: 13px; font-size: 8px; }
+      .webgl-fallback::before, .webgl-fallback::after { top: 30%; left: 50%; width: 290px; }
       .scroll-cue { right: var(--page-gutter); bottom: 28px; font-size: 8px; }
       .scroll-cue::after { width: 33px; }
       .worlds, .about { padding-top: 88px; padding-bottom: 92px; }
       .section-heading { margin-bottom: 30px; }
       .section-heading h2, .about h2 { font-size: clamp(29px, 8vw, 40px); line-height: 1.55; }
+      .worlds .section-heading h2 { font-size: clamp(28px, 7.6vw, 38px); }
       .section-heading__aside { font-size: 12px; }
       .world-grid { grid-template-columns: 1fr; gap: 34px; }
+      .world-card:nth-child(2), .world-card:nth-child(3) { margin-top: 0; }
       .world-art { aspect-ratio: 1.24; }
       .world-card h3 { margin-top: 14px; font-size: 18px; }
       .world-card__en { display: inline; margin-left: 7px; }
-      .world-card p { font-size: 12px; }
-      .about { grid-template-columns: 1fr; gap: 25px; }
+      .world-card p { font-size: 13px; }
+      .about { grid-template-columns: 1fr; gap: 22px; }
       .about .eyebrow { margin-top: 0; }
       .about__body p { font-size: 14px; }
-      .about-details { gap: 8px; margin-top: 28px; }
-      .about-details span { padding: 7px 9px; font-size: 10px; }
+      .about__features { grid-template-columns: 1fr; margin-top: 14px; }
+      .about-feature, .about-feature:first-child, .about-feature:last-child { padding: 18px 0 19px; border-right: 0; border-bottom: 1px solid rgba(222, 215, 255, .13); }
+      .about-feature:last-child { border-bottom: 0; }
+      .about-feature h3 { margin-top: 8px; }
+      .about-feature p { font-size: 13px; }
       .about::after { top: 16%; right: -50%; width: 92vw; }
       .site-footer { align-items: flex-start; flex-direction: column; gap: 12px; padding-top: 22px; font-size: 8px; }
       .footer-credit { text-align: left; }
@@ -416,7 +445,7 @@
       <div class="webgl-fallback" aria-hidden="true"></div>
       <div class="hero-copy">
         <p class="eyebrow">IMMERSIVE DIGITAL ART&nbsp; / &nbsp;TOKYO</p>
-        <h1 id="hero-title">境界の向こうに、まだ見ぬ星がある。</h1>
+        <h1 id="hero-title">境界の向こうに、<span>まだ見ぬ星がある。</span></h1>
         <p class="hero-lede">光と音に身を委ね、まだ知らない宇宙を歩く。<br>ここは、想像力のための異界観測所。</p>
         <div class="hero-actions">
           <a class="button-primary" href="#worlds">展示世界をのぞく <span aria-hidden="true">↗</span></a>
@@ -463,16 +492,28 @@
     <section class="about" id="about" aria-labelledby="about-title">
       <div class="about__intro">
         <p class="eyebrow">A PLACE TO WANDER</p>
-        <h2 id="about-title">見るだけでは<br>終わらない宇宙。</h2>
+        <h2 id="about-title">あなたの気配に、<br>世界が応える。</h2>
       </div>
       <div class="about__body">
         <p>歩く速さ、視線の先、そこにいる人の気配。あなたの存在に呼応して、光や音、空間そのものが少しずつ姿を変えていきます。</p>
         <p>決まった順路も、ひとつの正解もありません。まだ名前のない風景に出会うための、没入型デジタルアート体験です。</p>
-        <div class="about-details" aria-label="体験の特徴">
-          <span>光と音のインスタレーション</span>
-          <span>自由に歩いて楽しむ空間</span>
-          <span>その場かぎりの風景</span>
-        </div>
+      </div>
+      <div class="about__features" aria-label="体験の特徴">
+        <article class="about-feature">
+          <span class="about-feature__label">RESONANCE / 音</span>
+          <h3>音と光が呼応する</h3>
+          <p>空間に満ちる音に合わせて、色や粒子の流れが変化します。</p>
+        </article>
+        <article class="about-feature">
+          <span class="about-feature__label">MOVEMENT / 歩行</span>
+          <h3>歩幅が順路になる</h3>
+          <p>決まった道はありません。気になる光を追いかけて巡れます。</p>
+        </article>
+        <article class="about-feature">
+          <span class="about-feature__label">PRESENCE / 気配</span>
+          <h3>その場かぎりの景色</h3>
+          <p>訪れた人の気配が重なり、同じ瞬間は二度とありません。</p>
+        </article>
       </div>
     </section>
   </main>
@@ -503,6 +544,7 @@
         precision highp float;
         uniform vec2 u_resolution;
         uniform vec2 u_mouse;
+        uniform vec2 u_center;
         uniform float u_time;
         uniform float u_scale;
 
@@ -532,15 +574,16 @@
         }
         vec2 scene(vec3 p) {
           p.xz = rotate2d(0.16 * sin(u_time * 0.13)) * p.xz;
-          p.xy = rotate2d(-0.31 + 0.08 * sin(u_time * 0.11)) * p.xy;
+          p.yz = rotate2d(0.84 + 0.08 * sin(u_time * 0.11)) * p.yz;
+          p.xy = rotate2d(-0.22 + 0.08 * sin(u_time * 0.11)) * p.xy;
           float ripple = 0.022 * sin(p.x * 14.0 + u_time * 0.32) * sin(p.y * 12.0 - u_time * 0.25) * sin(p.z * 11.0);
-          float sphere = length(p) - 0.48 + ripple;
+          float sphere = abs(length(p) - 0.48 + ripple) - 0.022;
           float angle = atan(p.z, p.x);
           float radius = 0.72 + 0.022 * sin(angle * 9.0 + u_time * 0.2);
           float ring = length(vec2(length(p.xz) - radius, p.y)) - 0.026;
           vec3 q = p;
           q.xy = rotate2d(1.02) * q.xy;
-          float halo = length(vec2(length(q.xy) - 0.9, q.z)) - 0.008;
+          float halo = length(vec2(length(q.xy) - 0.85, q.z)) - 0.008;
           return vec2(min(sphere, min(ring, halo)), sphere <= min(ring, halo) ? 0.0 : (ring < halo ? 1.0 : 2.0));
         }
         float mapScene(vec3 p) { return scene(p).x; }
@@ -569,8 +612,7 @@
           float pulse = 0.68 + 0.32 * sin(u_time * (0.5 + starSeed * 1.8) + starSeed * 45.0);
           deep += star * pulse * vec3(0.65, 0.76, 1.0) * 0.8;
 
-          vec2 center = vec2(0.22, 0.09) + u_mouse * 0.018;
-          if (u_scale < 0.5) center = vec2(0.0, 0.21) + u_mouse * 0.01;
+          vec2 center = u_center + u_mouse * 0.014;
           vec2 local = (screen - center) / u_scale;
           vec3 ro = vec3(local, 3.0);
           vec3 rd = vec3(0.0, 0.0, -1.0);
@@ -578,7 +620,7 @@
           float hit = 0.0;
           float glow = 0.0;
           vec3 point = ro;
-          for (int i = 0; i < 68; i++) {
+          for (int i = 0; i < 54; i++) {
             point = ro + rd * travel;
             float distanceToScene = mapScene(point);
             glow += exp(-abs(distanceToScene) * 22.0) * 0.003;
@@ -589,7 +631,7 @@
 
           float radial = length(local);
           float corona = exp(-pow((radial - 0.77) / 0.055, 2.0)) * 0.2;
-          float softCore = exp(-radial * 3.8) * 0.1;
+          float softCore = exp(-radial * 3.1) * 0.14;
           deep += (corona + softCore + glow * 0.4) * mix(vec3(0.31, 0.55, 0.94), vec3(0.73, 0.39, 0.84), smoothstep(-0.65, 0.55, screen.y));
 
           if (hit > 0.5) {
@@ -599,14 +641,17 @@
             float diffuse = max(dot(n, lightDir), 0.0);
             float fresnel = pow(1.0 - max(dot(n, viewDir), 0.0), 2.7);
             float bands = 0.5 + 0.5 * sin(point.y * 17.0 + atan(point.z, point.x) * 3.0 + u_time * 0.22);
-            vec3 base = mix(vec3(0.25, 0.44, 0.71), vec3(0.76, 0.65, 0.96), bands);
+            vec3 base = mix(vec3(0.075, 0.16, 0.3), vec3(0.27, 0.46, 0.67), bands);
             vec2 identity = scene(point);
-            if (identity.y > 0.5 && identity.y < 1.5) base = mix(vec3(0.29, 0.63, 0.8), vec3(0.74, 0.68, 0.97), bands * 0.8);
-            if (identity.y > 1.5) base = vec3(0.68, 0.79, 0.95);
+            if (identity.y > 0.5 && identity.y < 1.5) base = mix(vec3(0.12, 0.43, 0.62), vec3(0.72, 0.69, 0.98), bands * 0.8);
+            if (identity.y > 1.5) base = mix(vec3(0.47, 0.57, 0.81), vec3(0.88, 0.78, 0.65), bands);
             float specular = pow(max(dot(reflect(-lightDir, n), viewDir), 0.0), 48.0);
             float rimLight = pow(1.0 - max(dot(n, viewDir), 0.0), 5.0);
-            vec3 objectColor = base * (0.18 + diffuse * 0.92) + vec3(0.43, 0.69, 0.96) * (specular * 0.85 + rimLight * 0.54);
-            deep = mix(deep, objectColor, identity.y > 1.5 ? 0.83 : 0.97);
+            float filaments = pow(0.5 + 0.5 * sin(point.y * 17.0 + point.z * 5.0 + u_time * 0.23), 10.0);
+            vec3 objectColor = base * (0.16 + diffuse * 0.9) + vec3(0.39, 0.7, 0.96) * (specular * 0.85 + rimLight * 0.62);
+            objectColor += vec3(0.11, 0.42, 0.66) * filaments * (identity.y < 0.5 ? 0.65 : 0.08);
+            float shellOpacity = clamp(0.08 + fresnel * 0.62 + specular * 0.28, 0.08, 0.86);
+            deep = mix(deep, objectColor, identity.y < 0.5 ? shellOpacity : 0.98);
           }
 
           float vignette = 1.0 - smoothstep(0.58, 1.62, length(screen * vec2(0.72, 1.0)));
@@ -644,6 +689,7 @@
         const uniforms = {
           resolution: gl.getUniformLocation(program, 'u_resolution'),
           mouse: gl.getUniformLocation(program, 'u_mouse'),
+          center: gl.getUniformLocation(program, 'u_center'),
           time: gl.getUniformLocation(program, 'u_time'),
           scale: gl.getUniformLocation(program, 'u_scale')
         };
@@ -658,7 +704,7 @@
         const draw = (time) => {
           const bounds = hero.getBoundingClientRect();
           const isMobile = bounds.width <= 640;
-          const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.05 : 1.25, Math.sqrt(1250000 / (bounds.width * bounds.height)));
+          const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 0.9 : 1.0, Math.sqrt(950000 / (bounds.width * bounds.height)));
           const width = Math.max(1, Math.floor(bounds.width * dpr));
           const height = Math.max(1, Math.floor(bounds.height * dpr));
           if (canvas.width !== width || canvas.height !== height) {
@@ -668,8 +714,11 @@
           }
           gl.uniform2f(uniforms.resolution, width, height);
           gl.uniform2f(uniforms.mouse, pointerX, pointerY);
+          const portalCenter = isMobile ? [0.0, 0.21] : (bounds.width <= 1050 ? [0.36, 0.09] : [0.30, 0.09]);
+          gl.uniform2f(uniforms.center, portalCenter[0], portalCenter[1]);
           gl.uniform1f(uniforms.time, time);
-          gl.uniform1f(uniforms.scale, isMobile ? 0.39 : 0.78);
+          const portalScale = isMobile ? (bounds.width <= 420 ? 0.27 : 0.31) : (bounds.width <= 1050 ? 0.36 : 0.42);
+          gl.uniform1f(uniforms.scale, portalScale);
           gl.drawArrays(gl.TRIANGLES, 0, 6);
         };
         const animate = (now) => {

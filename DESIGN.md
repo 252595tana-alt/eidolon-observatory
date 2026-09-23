@@ -3,6 +3,9 @@ version: alpha
 colors:
   background: "#090817"
   surface: "#100e22"
+  gallery: "#e6e5ee"
+  gallery-ink: "#211f37"
+  gallery-muted: "#68667b"
   foreground: "#f4f1ff"
   muted: "#a5a2ba"
   accent-violet: "#b6a5ff"
@@ -36,7 +39,7 @@ EIDOLON is a Japan-facing concept site for an imagined immersive digital art obs
 
 ## Colors
 
-The canvas uses ink violet as its base. Ice blue and soft violet mark the portal and key actions; muted lavender carries secondary text. Pale gold is a restrained highlight in the runtime palette. Color describes light and distance, not cultural motifs or status.
+The canvas uses ink violet as its base. Ice blue and soft violet mark the portal and key actions; muted lavender carries secondary text. The exhibition atlas shifts to moonstone gray with deep violet text, then the experience section returns to ink for a deliberate light-to-dark rhythm. Pale gold is a restrained highlight in the garden artwork and outer orbit. Color describes light and distance, not cultural motifs or status.
 
 ## Typography
 
@@ -44,7 +47,7 @@ Japanese copy uses native system sans-serif fallbacks so kana, kanji, and punctu
 
 ## Layout
 
-The page opens with a full-viewport WebGL scene and a readable lower-left title. The portal occupies the right side on desktop and moves above the copy on mobile. The following sections move from three imagined worlds to a short explanation of the experience. Page gutters scale with viewport width, and the exhibit cards collapse to one column on narrow screens.
+The page opens with a full-viewport WebGL scene and a deliberate two-line title in the lower left. A refractive shell and two angled orbits occupy the right side on desktop and move above the copy on mobile. The exhibition atlas uses three staggered poster panels on a moonstone field, followed by a dark experience section with three explanatory feature columns. Page gutters scale with viewport width, and the exhibit cards collapse to one column on narrow screens.
 
 ## Elevation & Depth
 
@@ -61,6 +64,7 @@ The primary link uses a violet outline and an ice-blue arrow. Navigation remains
 ## Do's and Don'ts
 
 - Keep the orbital shader as the page's one dominant visual gesture; let Japanese copy remain calm and legible over it.
+- Use the moonstone atlas surface to give the eye a quiet rest between the immersive hero and the final dark section.
 - Use Japanese-capable system fonts before generic fallbacks and retain natural Japanese line wrapping.
 - Keep exhibition names, descriptions, and imagery within the invented observatory setting.
 - Do not add dense HUD chrome, unrelated neon accents, or decorative Japan stereotypes.
