@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090817">
+  <meta name="description" content="光と音で編まれた、まだ名前のない宇宙を歩く。EIDOLON 異界観測所の没入型デジタルアート体験。">
+  <title>EIDOLON — 異界観測所</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #090817;
+      --ink-soft: #100e22;
+      --paper: #f4f1ff;
+      --muted: #a5a2ba;
+      --line: rgba(230, 225, 255, .18);
+      --violet: #b6a5ff;
+      --ice: #a9e7f3;
+      --gold: #edcfac;
+      --page-gutter: clamp(22px, 6.1vw, 94px);
+      --font-jp: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+      --font-display: "Arial", "Helvetica Neue", sans-serif;
+      --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scrollbar-color: #57516f #100e22; }
+    body {
+      margin: 0;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--font-jp);
+      font-size: 16px;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    ::selection { color: var(--ink); background: var(--ice); }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a:focus-visible { outline: 2px solid var(--ice); outline-offset: 5px; }
+    .skip-link {
+      position: fixed;
+      z-index: 20;
+      top: 12px;
+      left: 12px;
+      padding: 10px 16px;
+      transform: translateY(-160%);
+      color: var(--ink);
+      background: var(--paper);
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    .site-header {
+      position: absolute;
+      z-index: 5;
+      top: 0;
+      left: 0;
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      padding: 27px var(--page-gutter);
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 190px;
+    }
+    .brand-mark {
+      position: relative;
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border: 1px solid rgba(207, 199, 255, .7);
+      border-radius: 50%;
+    }
+    .brand-mark::before, .brand-mark::after {
+      position: absolute;
+      width: 16px;
+      height: 1px;
+      background: var(--ice);
+      content: "";
+      transform: rotate(45deg);
+    }
+    .brand-mark::after { transform: rotate(-45deg); }
+    .brand-word { display: flex; flex-direction: column; font-family: var(--font-display); font-size: 12px; font-weight: 600; letter-spacing: .2em; line-height: 1.15; }
+    .brand-word small { margin-top: 5px; color: #b6b1c8; font-family: var(--font-jp); font-size: 9px; font-weight: 400; letter-spacing: .14em; }
+    .site-nav { display: flex; align-items: center; gap: clamp(24px, 4vw, 60px); }
+    .site-nav a {
+      position: relative;
+      color: #d4d0e2;
+      font-size: 12px;
+      letter-spacing: .08em;
+      transition: color .25s ease;
+    }
+    .site-nav a::after {
+      position: absolute;
+      right: 0;
+      bottom: -7px;
+      left: 0;
+      height: 1px;
+      background: var(--ice);
+      content: "";
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .25s ease;
+    }
+    .site-nav a:hover { color: white; }
+    .site-nav a:hover::after { transform: scaleX(1); }
+    .header-coordinate {
+      min-width: 190px;
+      color: #9d9ab0;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .12em;
+      text-align: right;
+    }
+
+    .hero {
+      position: relative;
+      isolation: isolate;
+      display: flex;
+      min-height: 740px;
+      height: 100svh;
+      max-height: 1100px;
+      align-items: flex-end;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 73% 47%, rgba(87, 71, 148, .23), transparent 32%),
+        linear-gradient(145deg, #0d0b20 0%, #090817 55%, #0b0a18 100%);
+    }
+    .webgl-canvas, .webgl-fallback { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .webgl-canvas { z-index: -2; display: block; }
+    .webgl-fallback { z-index: -2; display: none; overflow: hidden; }
+    .webgl-fallback::before, .webgl-fallback::after {
+      position: absolute;
+      top: 45%;
+      left: 68%;
+      width: min(64vw, 660px);
+      aspect-ratio: 1;
+      border: 1px solid rgba(177, 214, 255, .58);
+      border-radius: 50%;
+      box-shadow: 0 0 32px rgba(141, 125, 255, .5), inset 0 0 50px rgba(120, 131, 255, .2);
+      content: "";
+      transform: translate(-50%, -50%) rotate(-28deg) scaleY(.34);
+    }
+    .webgl-fallback::after { transform: translate(-50%, -50%) rotate(55deg) scaleY(.34); border-color: rgba(225, 204, 255, .7); }
+    .hero::after {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(9, 8, 23, .88) 0%, rgba(9, 8, 23, .58) 31%, rgba(9, 8, 23, .06) 72%),
+        linear-gradient(0deg, rgba(9, 8, 23, .72) 0%, transparent 38%, rgba(9, 8, 23, .2) 100%);
+      content: "";
+      pointer-events: none;
+    }
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+      width: min(700px, 62vw);
+      margin: 0 0 clamp(105px, 15vh, 165px) var(--page-gutter);
+    }
+    .eyebrow, .micro-label {
+      color: var(--ice);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .19em;
+      line-height: 1.5;
+    }
+    .eyebrow { display: flex; align-items: center; gap: 13px; margin: 0 0 24px; }
+    .eyebrow::before { width: 32px; height: 1px; background: currentColor; content: ""; }
+    .hero h1 {
+      max-width: 11em;
+      margin: 0;
+      color: #f7f4ff;
+      font-size: clamp(45px, 6.1vw, 82px);
+      font-weight: 400;
+      letter-spacing: .025em;
+      line-height: 1.32;
+      text-wrap: pretty;
+    }
+    .hero-lede { max-width: 33em; margin: 20px 0 0; color: #c2bfd2; font-size: clamp(14px, 1.2vw, 16px); line-height: 2; text-wrap: pretty; }
+    .hero-actions { display: flex; align-items: center; gap: 28px; margin-top: 37px; }
+    .button-primary {
+      display: inline-flex;
+      min-height: 54px;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      padding: 0 21px;
+      border: 1px solid rgba(195, 184, 255, .65);
+      color: #f8f6ff;
+      background: rgba(27, 23, 54, .42);
+      font-size: 12px;
+      letter-spacing: .1em;
+      transition: border-color .25s ease, background .25s ease, transform .25s ease;
+    }
+    .button-primary span { color: var(--ice); font-family: var(--font-mono); font-size: 16px; transition: transform .25s ease; }
+    .button-primary:hover { border-color: var(--ice); background: rgba(89, 76, 151, .38); transform: translateY(-2px); }
+    .button-primary:hover span { transform: translate(3px, -3px); }
+    .text-link { display: inline-flex; align-items: center; gap: 12px; color: #c6c1d7; font-size: 12px; letter-spacing: .07em; transition: color .2s ease; }
+    .text-link:hover { color: var(--ice); }
+    .text-link span { color: var(--ice); font-family: var(--font-mono); }
+    .hero-note {
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      right: var(--page-gutter);
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      color: rgba(224, 222, 241, .65);
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .2em;
+      writing-mode: vertical-rl;
+    }
+    .hero-note::before { width: 1px; height: 45px; background: linear-gradient(var(--ice), transparent); content: ""; }
+    .scroll-cue {
+      position: absolute;
+      z-index: 2;
+      right: var(--page-gutter);
+      bottom: 49px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: #aaa6bc;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .18em;
+    }
+    .scroll-cue::after { width: 54px; height: 1px; background: linear-gradient(90deg, var(--violet), transparent); content: ""; }
+
+    .worlds, .about { position: relative; padding: clamp(94px, 13vw, 172px) var(--page-gutter); }
+    .worlds { background: linear-gradient(180deg, #100e22 0%, #0c0b1b 100%); }
+    .section-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; margin-bottom: 48px; }
+    .section-heading__copy { max-width: 650px; }
+    .section-heading .eyebrow { margin-bottom: 15px; }
+    .section-heading h2, .about h2 {
+      margin: 0;
+      color: #f1edff;
+      font-size: clamp(30px, 4.2vw, 54px);
+      font-weight: 400;
+      letter-spacing: .04em;
+      line-height: 1.5;
+      text-wrap: pretty;
+    }
+    .section-heading__aside { max-width: 250px; margin: 0 0 6px; color: var(--muted); font-size: 13px; line-height: 1.9; }
+    .world-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 34px); }
+    .world-card { min-width: 0; }
+    .world-art {
+      position: relative;
+      display: block;
+      aspect-ratio: 1.16;
+      overflow: hidden;
+      border: 1px solid rgba(225, 219, 255, .12);
+      background-color: #17152c;
+      isolation: isolate;
+    }
+    .world-art::before, .world-art::after { position: absolute; content: ""; pointer-events: none; }
+    .world-art::before { inset: 0; z-index: -1; transition: transform .75s cubic-bezier(.2,.7,.2,1); }
+    .world-art:hover::before { transform: scale(1.07); }
+    .world-art--sea::before {
+      background:
+        radial-gradient(ellipse at 50% 57%, rgba(211, 228, 255, .7) 0 1%, transparent 1.7%),
+        repeating-radial-gradient(ellipse at 50% 59%, transparent 0 18px, rgba(174, 223, 255, .34) 19px 20px, transparent 21px 35px),
+        radial-gradient(ellipse at 51% 58%, rgba(80, 157, 207, .68), transparent 36%),
+        linear-gradient(145deg, #10172e, #142747 51%, #111125);
+    }
+    .world-art--sea::after { inset: 10% 19%; border: 1px solid rgba(185, 226, 255, .5); border-radius: 50%; transform: rotate(-29deg) scaleY(.35); box-shadow: 0 0 34px rgba(123, 204, 252, .18); }
+    .world-art--grove::before {
+      background:
+        radial-gradient(ellipse at 51% 40%, rgba(233, 232, 200, .8), transparent 3%),
+        radial-gradient(ellipse at 47% 42%, rgba(183, 206, 193, .34), transparent 21%),
+        repeating-conic-gradient(from 211deg at 52% 45%, transparent 0deg 13deg, rgba(195, 229, 210, .16) 14deg 14.6deg, transparent 15deg 29deg),
+        radial-gradient(ellipse at 52% 62%, #374957 0%, #1c2937 36%, #101323 78%);
+    }
+    .world-art--grove::after { width: 48%; aspect-ratio: 1; top: 21%; left: 26%; border: 1px solid rgba(213, 235, 212, .33); border-radius: 50%; box-shadow: 0 0 70px rgba(199, 234, 208, .12), inset 0 0 30px rgba(223, 245, 206, .12); }
+    .world-art--garden::before {
+      background:
+        radial-gradient(ellipse at 50% 49%, #fff3df 0 1.1%, transparent 1.7%),
+        repeating-conic-gradient(from 0deg at 50% 49%, rgba(246, 218, 244, .72) 0deg 1.6deg, transparent 1.8deg 18deg),
+        radial-gradient(ellipse at 50% 49%, rgba(231, 170, 228, .22) 0 17%, transparent 18%),
+        radial-gradient(ellipse at 50% 54%, #492d60 0%, #211936 45%, #111022 83%);
+    }
+    .world-art--garden::after { top: 22%; left: 29%; width: 42%; aspect-ratio: 1; border: 1px solid rgba(244, 220, 255, .52); border-radius: 50%; box-shadow: 0 0 46px rgba(215, 165, 251, .27); }
+    .art-coordinate { position: absolute; top: 15px; left: 16px; color: rgba(237, 235, 249, .68); font-family: var(--font-mono); font-size: 8px; letter-spacing: .16em; }
+    .art-light { position: absolute; right: 18px; bottom: 17px; width: 5px; height: 5px; border-radius: 50%; background: var(--ice); box-shadow: 0 0 13px 4px rgba(169, 231, 243, .45); }
+    .world-card h3 { margin: 21px 0 5px; color: #f0edfa; font-size: 20px; font-weight: 400; letter-spacing: .045em; }
+    .world-card__en { margin-left: 10px; color: #a39eb8; font-family: var(--font-display); font-size: 10px; letter-spacing: .12em; }
+    .world-card p { max-width: 31em; margin: 0; color: #aaa7ba; font-size: 13px; line-height: 1.95; }
+
+    .about { display: grid; grid-template-columns: minmax(180px, .8fr) minmax(0, 1.4fr); gap: clamp(36px, 9vw, 140px); align-items: start; overflow: hidden; background: #090817; }
+    .about::after {
+      position: absolute;
+      top: 3%;
+      right: -14%;
+      width: 54vw;
+      max-width: 700px;
+      aspect-ratio: 1;
+      border: 1px solid rgba(176, 162, 255, .08);
+      border-radius: 50%;
+      box-shadow: 0 0 0 42px rgba(176, 162, 255, .018), 0 0 0 95px rgba(176, 162, 255, .014), inset 0 0 100px rgba(176, 162, 255, .045);
+      content: "";
+      pointer-events: none;
+    }
+    .about__intro, .about__body { position: relative; z-index: 1; }
+    .about .eyebrow { margin: 8px 0 20px; }
+    .about h2 { max-width: 12em; }
+    .about__body p { max-width: 36em; margin: 8px 0 28px; color: #b7b3c6; font-size: 15px; line-height: 2.2; text-wrap: pretty; }
+    .about-details { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 42px; }
+    .about-details span { padding: 8px 12px; border: 1px solid rgba(222, 215, 255, .16); color: #cfcbdd; font-size: 11px; letter-spacing: .07em; }
+    .about-details span::before { margin-right: 9px; color: var(--ice); content: "✳"; font-size: 9px; }
+    .about .text-link { margin-top: 8px; }
+
+    .site-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 26px var(--page-gutter) 30px;
+      border-top: 1px solid rgba(222, 215, 255, .12);
+      color: #9390a6;
+      background: #090817;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .11em;
+    }
+    .footer-brand { color: #dad6e9; font-family: var(--font-display); font-size: 10px; letter-spacing: .2em; }
+    .footer-credit { text-align: right; }
+
+    @media (max-width: 900px) {
+      .header-coordinate { display: none; }
+      .hero-copy { width: min(660px, 76vw); }
+      .hero-note { right: 24px; }
+      .section-heading { align-items: flex-start; flex-direction: column; gap: 14px; }
+      .section-heading__aside { max-width: 34em; }
+      .world-grid { gap: 16px; }
+      .world-card__en { display: block; margin: 2px 0 0; }
+      .world-card h3 { font-size: 18px; }
+    }
+    @media (max-width: 640px) {
+      :root { --page-gutter: 23px; }
+      .site-header { padding-top: 20px; }
+      .brand { min-width: 0; gap: 9px; }
+      .brand-mark { width: 30px; height: 30px; }
+      .brand-word { font-size: 11px; }
+      .brand-word small { font-size: 8px; }
+      .site-nav { gap: 19px; }
+      .site-nav a { font-size: 10px; }
+      .hero { min-height: 690px; height: 100svh; max-height: 900px; }
+      .hero::after {
+        background:
+          linear-gradient(0deg, rgba(9, 8, 23, .96) 1%, rgba(9, 8, 23, .74) 36%, rgba(9, 8, 23, .08) 77%),
+          linear-gradient(90deg, rgba(9, 8, 23, .35), transparent 75%);
+      }
+      .hero-copy { width: calc(100% - 2 * var(--page-gutter)); margin-bottom: 109px; }
+      .eyebrow { margin-bottom: 17px; font-size: 9px; }
+      .hero h1 { max-width: 10em; font-size: clamp(39px, 10.6vw, 58px); line-height: 1.42; }
+      .hero-lede { max-width: 27em; margin-top: 13px; font-size: 13px; line-height: 1.9; }
+      .hero-actions { gap: 18px; margin-top: 25px; }
+      .button-primary { min-height: 49px; gap: 14px; padding: 0 15px; font-size: 11px; }
+      .text-link { gap: 8px; font-size: 11px; }
+      .hero-note { top: 48%; right: 13px; font-size: 8px; }
+      .scroll-cue { right: var(--page-gutter); bottom: 28px; font-size: 8px; }
+      .scroll-cue::after { width: 33px; }
+      .worlds, .about { padding-top: 88px; padding-bottom: 92px; }
+      .section-heading { margin-bottom: 30px; }
+      .section-heading h2, .about h2 { font-size: clamp(29px, 8vw, 40px); line-height: 1.55; }
+      .section-heading__aside { font-size: 12px; }
+      .world-grid { grid-template-columns: 1fr; gap: 34px; }
+      .world-art { aspect-ratio: 1.24; }
+      .world-card h3 { margin-top: 14px; font-size: 18px; }
+      .world-card__en { display: inline; margin-left: 7px; }
+      .world-card p { font-size: 12px; }
+      .about { grid-template-columns: 1fr; gap: 25px; }
+      .about .eyebrow { margin-top: 0; }
+      .about__body p { font-size: 14px; }
+      .about-details { gap: 8px; margin-top: 28px; }
+      .about-details span { padding: 7px 9px; font-size: 10px; }
+      .about::after { top: 16%; right: -50%; width: 92vw; }
+      .site-footer { align-items: flex-start; flex-direction: column; gap: 12px; padding-top: 22px; font-size: 8px; }
+      .footer-credit { text-align: left; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+    @media (forced-colors: active) {
+      a:focus-visible { outline: 2px solid Highlight; }
+      .button-primary { border: 1px solid ButtonText; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へ移動</a>
+  <header class="site-header" id="top">
+    <a class="brand" href="#top" aria-label="EIDOLON 異界観測所 ホーム">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-word">EIDOLON<small>異界観測所</small></span>
+    </a>
+    <nav class="site-nav" aria-label="メインナビゲーション">
+      <a href="#worlds">展示世界</a>
+      <a href="#about">体験について</a>
+    </nav>
+    <span class="header-coordinate" aria-hidden="true">35°40′N&nbsp; 139°42′E</span>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <canvas class="webgl-canvas" aria-hidden="true"></canvas>
+      <div class="webgl-fallback" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="eyebrow">IMMERSIVE DIGITAL ART&nbsp; / &nbsp;TOKYO</p>
+        <h1 id="hero-title">境界の向こうに、まだ見ぬ星がある。</h1>
+        <p class="hero-lede">光と音に身を委ね、まだ知らない宇宙を歩く。<br>ここは、想像力のための異界観測所。</p>
+        <div class="hero-actions">
+          <a class="button-primary" href="#worlds">展示世界をのぞく <span aria-hidden="true">↗</span></a>
+          <a class="text-link" href="#about">体験について <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+      <span class="hero-note" aria-hidden="true">AN IMAGINED WORLD, IN MOTION</span>
+      <a class="scroll-cue" href="#worlds" aria-label="展示世界へスクロール">SCROLL TO EXPLORE</a>
+    </section>
+
+    <section class="worlds" id="worlds" aria-labelledby="worlds-title">
+      <div class="section-heading">
+        <div class="section-heading__copy">
+          <p class="eyebrow">WORLDS OF EIDOLON</p>
+          <h2 id="worlds-title">星々のあいだを、旅する。</h2>
+        </div>
+        <p class="section-heading__aside">一歩ごとに景色が変わる、三つの異界。<br>光の気配をたどって、気の向くままに。</p>
+      </div>
+      <div class="world-grid">
+        <article class="world-card">
+          <div class="world-art world-art--sea" role="img" aria-label="青い光の輪が広がる瑠璃色の深海">
+          <span class="art-coordinate">ABYSSAL&nbsp; / &nbsp;DEEP FIELD</span><span class="art-light" aria-hidden="true"></span>
+          </div>
+          <h3>瑠璃の深海 <span class="world-card__en">THE LAPIS SEA</span></h3>
+          <p>声を反射し、波紋として返す青い海。</p>
+        </article>
+        <article class="world-card">
+          <div class="world-art world-art--grove" role="img" aria-label="光の粒がただよう静かな忘却の森">
+          <span class="art-coordinate">SILENT&nbsp; / &nbsp;MEMORY FIELD</span><span class="art-light" aria-hidden="true"></span>
+          </div>
+          <h3>忘却の森 <span class="world-card__en">THE UNWRITTEN GROVE</span></h3>
+          <p>触れた記憶から、枝がひらいていく。</p>
+        </article>
+        <article class="world-card">
+          <div class="world-art world-art--garden" role="img" aria-label="夜空に咲く透明な花の庭">
+          <span class="art-coordinate">NOCTURNE&nbsp; / &nbsp;LUMINOUS FIELD</span><span class="art-light" aria-hidden="true"></span>
+          </div>
+          <h3>白夜の庭 <span class="world-card__en">GARDEN OF NOCTURNE</span></h3>
+          <p>夜空に浮かぶ透明な花をたどる。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="about" id="about" aria-labelledby="about-title">
+      <div class="about__intro">
+        <p class="eyebrow">A PLACE TO WANDER</p>
+        <h2 id="about-title">見るだけでは<br>終わらない宇宙。</h2>
+      </div>
+      <div class="about__body">
+        <p>歩く速さ、視線の先、そこにいる人の気配。あなたの存在に呼応して、光や音、空間そのものが少しずつ姿を変えていきます。</p>
+        <p>決まった順路も、ひとつの正解もありません。まだ名前のない風景に出会うための、没入型デジタルアート体験です。</p>
+        <div class="about-details" aria-label="体験の特徴">
+          <span>光と音のインスタレーション</span>
+          <span>自由に歩いて楽しむ空間</span>
+          <span>その場かぎりの風景</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span class="footer-brand">EIDOLON &nbsp; / &nbsp; 異界観測所</span>
+    <span class="footer-credit">A CONCEPT FOR AN IMAGINED OBSERVATORY &nbsp; · &nbsp; 2026</span>
+  </footer>
+
+  <script>
+    (() => {
+      const canvas = document.querySelector('.webgl-canvas');
+      const fallback = document.querySelector('.webgl-fallback');
+      const hero = document.querySelector('.hero');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const gl = canvas.getContext('webgl', { alpha: false, antialias: false, powerPreference: 'low-power' });
+      if (!gl) {
+        canvas.hidden = true;
+        fallback.style.display = 'block';
+        return;
+      }
+
+      const vertexSource = `
+        attribute vec2 a_position;
+        void main() { gl_Position = vec4(a_position, 0.0, 1.0); }
+      `;
+      const fragmentSource = `
+        precision highp float;
+        uniform vec2 u_resolution;
+        uniform vec2 u_mouse;
+        uniform float u_time;
+        uniform float u_scale;
+
+        float hash21(vec2 p) {
+          return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+        }
+        float noise2(vec2 p) {
+          vec2 i = floor(p);
+          vec2 f = fract(p);
+          f = f * f * (3.0 - 2.0 * f);
+          return mix(mix(hash21(i), hash21(i + vec2(1.0, 0.0)), f.x),
+                     mix(hash21(i + vec2(0.0, 1.0)), hash21(i + vec2(1.0, 1.0)), f.x), f.y);
+        }
+        float fbm(vec2 p) {
+          float value = 0.0;
+          float amplitude = 0.5;
+          for (int i = 0; i < 4; i++) {
+            value += amplitude * noise2(p);
+            p = p * 2.03 + 11.7;
+            amplitude *= 0.5;
+          }
+          return value;
+        }
+        mat2 rotate2d(float a) {
+          float c = cos(a), s = sin(a);
+          return mat2(c, -s, s, c);
+        }
+        vec2 scene(vec3 p) {
+          p.xz = rotate2d(0.16 * sin(u_time * 0.13)) * p.xz;
+          p.xy = rotate2d(-0.31 + 0.08 * sin(u_time * 0.11)) * p.xy;
+          float ripple = 0.022 * sin(p.x * 14.0 + u_time * 0.32) * sin(p.y * 12.0 - u_time * 0.25) * sin(p.z * 11.0);
+          float sphere = length(p) - 0.48 + ripple;
+          float angle = atan(p.z, p.x);
+          float radius = 0.72 + 0.022 * sin(angle * 9.0 + u_time * 0.2);
+          float ring = length(vec2(length(p.xz) - radius, p.y)) - 0.026;
+          vec3 q = p;
+          q.xy = rotate2d(1.02) * q.xy;
+          float halo = length(vec2(length(q.xy) - 0.9, q.z)) - 0.008;
+          return vec2(min(sphere, min(ring, halo)), sphere <= min(ring, halo) ? 0.0 : (ring < halo ? 1.0 : 2.0));
+        }
+        float mapScene(vec3 p) { return scene(p).x; }
+        vec3 normalAt(vec3 p) {
+          vec2 e = vec2(0.0015, 0.0);
+          return normalize(vec3(
+            mapScene(p + e.xyy) - mapScene(p - e.xyy),
+            mapScene(p + e.yxy) - mapScene(p - e.yxy),
+            mapScene(p + e.yyx) - mapScene(p - e.yyx)
+          ));
+        }
+        void main() {
+          vec2 screen = (gl_FragCoord.xy - 0.5 * u_resolution) / u_resolution.y;
+          vec3 deep = mix(vec3(0.025, 0.025, 0.066), vec3(0.055, 0.043, 0.12), smoothstep(-0.8, 0.75, screen.y));
+          vec2 nebulaPoint = screen * vec2(1.35, 1.75) + vec2(0.7, -u_time * 0.018);
+          float mist = fbm(nebulaPoint * 2.0) * 0.72 + fbm(nebulaPoint * 4.2 - 6.0) * 0.28;
+          float cloud = smoothstep(0.43, 0.78, mist) * (0.35 + 0.65 * exp(-abs(screen.x - 0.26) * 1.25));
+          deep += cloud * vec3(0.13, 0.075, 0.22);
+          deep += exp(-length(screen - vec2(0.28, 0.02)) * 2.6) * vec3(0.055, 0.095, 0.17);
+
+          vec2 starCell = floor((screen + vec2(1.4, 1.1)) * 72.0);
+          vec2 starLocal = fract((screen + vec2(1.4, 1.1)) * 72.0) - 0.5;
+          float starSeed = hash21(starCell);
+          float starDistance = length(starLocal - (vec2(hash21(starCell + 7.3), hash21(starCell + 19.1)) - 0.5) * 0.68);
+          float star = (1.0 - smoothstep(0.008, 0.027, starDistance)) * step(0.977, starSeed);
+          float pulse = 0.68 + 0.32 * sin(u_time * (0.5 + starSeed * 1.8) + starSeed * 45.0);
+          deep += star * pulse * vec3(0.65, 0.76, 1.0) * 0.8;
+
+          vec2 center = vec2(0.22, 0.09) + u_mouse * 0.018;
+          if (u_scale < 0.5) center = vec2(0.0, 0.21) + u_mouse * 0.01;
+          vec2 local = (screen - center) / u_scale;
+          vec3 ro = vec3(local, 3.0);
+          vec3 rd = vec3(0.0, 0.0, -1.0);
+          float travel = 0.0;
+          float hit = 0.0;
+          float glow = 0.0;
+          vec3 point = ro;
+          for (int i = 0; i < 68; i++) {
+            point = ro + rd * travel;
+            float distanceToScene = mapScene(point);
+            glow += exp(-abs(distanceToScene) * 22.0) * 0.003;
+            if (distanceToScene < 0.0015) { hit = 1.0; break; }
+            travel += max(distanceToScene * 0.76, 0.006);
+            if (travel > 5.7) break;
+          }
+
+          float radial = length(local);
+          float corona = exp(-pow((radial - 0.77) / 0.055, 2.0)) * 0.2;
+          float softCore = exp(-radial * 3.8) * 0.1;
+          deep += (corona + softCore + glow * 0.4) * mix(vec3(0.31, 0.55, 0.94), vec3(0.73, 0.39, 0.84), smoothstep(-0.65, 0.55, screen.y));
+
+          if (hit > 0.5) {
+            vec3 n = normalAt(point);
+            vec3 viewDir = -rd;
+            vec3 lightDir = normalize(vec3(-0.75, 0.85, 1.7));
+            float diffuse = max(dot(n, lightDir), 0.0);
+            float fresnel = pow(1.0 - max(dot(n, viewDir), 0.0), 2.7);
+            float bands = 0.5 + 0.5 * sin(point.y * 17.0 + atan(point.z, point.x) * 3.0 + u_time * 0.22);
+            vec3 base = mix(vec3(0.25, 0.44, 0.71), vec3(0.76, 0.65, 0.96), bands);
+            vec2 identity = scene(point);
+            if (identity.y > 0.5 && identity.y < 1.5) base = mix(vec3(0.29, 0.63, 0.8), vec3(0.74, 0.68, 0.97), bands * 0.8);
+            if (identity.y > 1.5) base = vec3(0.68, 0.79, 0.95);
+            float specular = pow(max(dot(reflect(-lightDir, n), viewDir), 0.0), 48.0);
+            float rimLight = pow(1.0 - max(dot(n, viewDir), 0.0), 5.0);
+            vec3 objectColor = base * (0.18 + diffuse * 0.92) + vec3(0.43, 0.69, 0.96) * (specular * 0.85 + rimLight * 0.54);
+            deep = mix(deep, objectColor, identity.y > 1.5 ? 0.83 : 0.97);
+          }
+
+          float vignette = 1.0 - smoothstep(0.58, 1.62, length(screen * vec2(0.72, 1.0)));
+          deep *= 0.73 + 0.27 * vignette;
+          float grain = hash21(gl_FragCoord.xy + floor(u_time * 8.0)) - 0.5;
+          deep += grain * 0.012;
+          gl_FragColor = vec4(deep, 1.0);
+        }
+      `;
+
+      const compile = (type, source) => {
+        const shader = gl.createShader(type);
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(shader));
+        return shader;
+      };
+
+      try {
+        const program = gl.createProgram();
+        gl.attachShader(program, compile(gl.VERTEX_SHADER, vertexSource));
+        gl.attachShader(program, compile(gl.FRAGMENT_SHADER, fragmentSource));
+        gl.linkProgram(program);
+        if (!gl.getProgramParameter(program, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(program));
+        gl.useProgram(program);
+
+        const vertices = new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]);
+        const buffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+        gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+        const position = gl.getAttribLocation(program, 'a_position');
+        gl.enableVertexAttribArray(position);
+        gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
+
+        const uniforms = {
+          resolution: gl.getUniformLocation(program, 'u_resolution'),
+          mouse: gl.getUniformLocation(program, 'u_mouse'),
+          time: gl.getUniformLocation(program, 'u_time'),
+          scale: gl.getUniformLocation(program, 'u_scale')
+        };
+        let pointerX = 0;
+        let pointerY = 0;
+        let frame = null;
+        let heroVisible = true;
+        let pageVisible = document.visibilityState === 'visible';
+        let visible = heroVisible && pageVisible;
+        let startTime = performance.now();
+
+        const draw = (time) => {
+          const bounds = hero.getBoundingClientRect();
+          const isMobile = bounds.width <= 640;
+          const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.05 : 1.25, Math.sqrt(1250000 / (bounds.width * bounds.height)));
+          const width = Math.max(1, Math.floor(bounds.width * dpr));
+          const height = Math.max(1, Math.floor(bounds.height * dpr));
+          if (canvas.width !== width || canvas.height !== height) {
+            canvas.width = width;
+            canvas.height = height;
+            gl.viewport(0, 0, width, height);
+          }
+          gl.uniform2f(uniforms.resolution, width, height);
+          gl.uniform2f(uniforms.mouse, pointerX, pointerY);
+          gl.uniform1f(uniforms.time, time);
+          gl.uniform1f(uniforms.scale, isMobile ? 0.39 : 0.78);
+          gl.drawArrays(gl.TRIANGLES, 0, 6);
+        };
+        const animate = (now) => {
+          frame = null;
+          if (reduceMotion.matches || !visible) return;
+          draw((now - startTime) / 1000);
+          frame = requestAnimationFrame(animate);
+        };
+        const update = () => {
+          if (frame !== null) cancelAnimationFrame(frame);
+          frame = null;
+          if (reduceMotion.matches || !visible) {
+            draw(0);
+          } else {
+            startTime = performance.now();
+            frame = requestAnimationFrame(animate);
+          }
+        };
+        const resize = () => draw(reduceMotion.matches ? 0 : (performance.now() - startTime) / 1000);
+
+        draw(0);
+        if (!reduceMotion.matches) frame = requestAnimationFrame(animate);
+        window.addEventListener('resize', resize, { passive: true });
+        hero.addEventListener('pointermove', (event) => {
+          const rect = hero.getBoundingClientRect();
+          pointerX = (event.clientX / rect.width - 0.5) * 2;
+          pointerY = (0.5 - event.clientY / rect.height) * 2;
+        }, { passive: true });
+        hero.addEventListener('pointerleave', () => { pointerX = 0; pointerY = 0; }, { passive: true });
+        reduceMotion.addEventListener('change', update);
+        document.addEventListener('visibilitychange', () => {
+          pageVisible = document.visibilityState === 'visible';
+          visible = pageVisible && heroVisible;
+          update();
+        });
+        if ('IntersectionObserver' in window) {
+          new IntersectionObserver(([entry]) => {
+            heroVisible = entry.isIntersecting;
+            visible = heroVisible && pageVisible;
+            update();
+          }, { threshold: 0.01 }).observe(hero);
+        }
+      } catch (error) {
+        canvas.hidden = true;
+        fallback.style.display = 'block';
+        console.error('WebGL scene unavailable:', error);
+      }
+    })();
+  </script>
+</body>
+</html>
